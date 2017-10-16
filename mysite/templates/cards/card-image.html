@@ -1,0 +1,16 @@
+{% load cms_tags %}
+<div class="card {{ instance.color_class }}">
+    <div class="card-image">
+        <img src="{{ instance.image_url }}">
+        {% if instance.image_title != '' %}
+        <span class="card-title">{{ instance.image_title }}</span>
+        {% endif %}
+    </div>
+    <div class="card-content">
+        <span class="card-title"> {{ instance.title_text }} </span>
+        {{ instance.content }}
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
+    </div>
+</div>

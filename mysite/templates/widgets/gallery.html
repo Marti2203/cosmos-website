@@ -1,0 +1,27 @@
+<!-- Cosmos Albums are Rendered by JavaScript using the JSON provided by the Facebook API. -->
+<div id='fb-albums'></div>
+
+<script type='text/javascript'>
+// Placeholder for content being added to the div.
+var html_out = '';
+// Retrieve Facebook JSON response from Django backend.
+// Check out this amazing regex I did (xoxo Niels)
+var text = '{{ instance.variable }}'.replace(/&quot;/g,'&#39;').replace(/&#39;: /g,'": ').replace(/: &#39;/g,': "').replace(/{&#39;/g,'{"').replace(/&#39;}/g,'"}').replace(/&#39;,/g,'",').replace(/, &#39;/g,', "').replace(/&#39;/g, "'").replace(/(\r\n|\n|\r)/gm," ").replace(/&amp;/g,'&');
+var json = JSON.parse(text);
+
+// Render albums
+for (album in json['albums']['data']) {
+	if(json['albums']['data'][album]['name'] != 'Profile Pictures' && json['albums']['data'][album]['name'] != 'Timeline Photos' && json['albums']['data'][album]['name'] != 'Mobile Uploads'){
+		html_out += '<div class="col s12 m6 l4"><div class="card"><div class="card-image" style="height: 300px; background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url('+
+		json['albums']['data'][album]['cover_photo']['images'][2]['source'] +
+		')" ><span class="card-title" style="background-color: rgba(0,0,0,0.15); width: 100%; height: 100%; font-weight: bold; text-align: center;">'+
+			json['albums']['data'][album]['name'] 
+		+ '</span></div><div class="card-action"><a href="#" style="color: black">View '+
+		json['albums']['data'][album]['photo_count'] 
+		+' Photos<i class="material-icons right">send</i></a></div></div></div>';
+	}
+}
+
+// Add results to HTML file.
+document.getElementById("fb-albums").innerHTML = html_out;
+</script>

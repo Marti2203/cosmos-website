@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="col s12 l12">
+    <div class="card grey lighten-5">
+        <div class="card-content">
+            <div class="card-image">
+              <img src="/static/assets/img/members_flat.jpg">
+              <span class="card-title">Cosmos Member Login <i class="material-icons left">verified_user</i></span>
+            </div>
+            <br/>
+            {% if form.errors %}
+            <p>Your username and password didn't match. Please try again.</p>
+            {% endif %}
+            <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td class="input-field">
+                        <input id="id_username" maxlength="254" name="username" class="validate" type="text" />
+                        <label for="id_username">E-mail Address</label>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td class="input-field">
+                        <input id="id_password" name="password" type="password" class="validate" />
+                        <label for="id_password">Password</label>
+                    </td>
+                </tr>
+            </table>
+            <button class="btn waves-effect waves-light" type="submit" value="login" name="action">Login
+                <i class="material-icons right">send</i>
+            </button> 
+              <a class="waves-effect waves-light btn red">Forgot password?</a>
+            <input type="hidden" name="next" value="/" />
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

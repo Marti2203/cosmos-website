@@ -1,0 +1,17 @@
+{% if not ancestors|length == 1 %}
+<nav class="light-blue darken-1">
+	<div class="nav-wrapper">
+		<div class="container">
+			<div class="col s12">
+				{% for ance in ancestors %}
+				{% if not forloop.first %}
+					<a class="breadcrumb" href="{{ ance.get_absolute_url }}">{{ ance.get_menu_title }}</a>
+				{% else %}
+
+				{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</nav>
+{% endif %}

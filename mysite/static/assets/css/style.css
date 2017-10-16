@@ -1,0 +1,100 @@
+/* Custom Style for Cosmos Website */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+
+/* Materialize Icons */
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+/* Size navigation fixes */
+.side-nav li{
+    font-weight: bold;
+}
+.side-nav h4{
+    color: black;
+    font-size: 24px;
+    margin-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Mobile Collapse Button */
+.button-collapse-nav {
+    position: absolute;
+    margin: 0;
+}
+
+.dropdown-button i.right {
+    margin-left: 5px;
+}
+
+/* Background style */
+.wrapper {
+    background-image: url("/static/assets/img/background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #87c2c8;
+    background-size: cover;
+}
+
+
+/* Spacing for page content */
+.content {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.col .card{
+    height: 100%;
+}
+.col .card .card-content {
+    margin-bottom: 35px;
+}
+.col .card .card-action{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.row {
+    margin-bottom: 0px;
+}
+.page-footer {
+    margin-top: 20px;
+}
+.card {
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+
+/* CMS related style customizations */
+.cms-toolbar-item-logo a:before {
+    content: '' !important;
+    background: url('/static/assets/img/cms_logo.png');/*url of image*/
+    height: 46px;
+    width: 175px;
+    display: block;
+    margin-right: 175px;
+    position: absolute;
+}
+.cms-toolbar-item-logo a {
+    width: 200px;
+}
+.cms-dragitem-text {
+    color: white;
+}
+.cms-dragitem-text strong {
+    color: black;
+}

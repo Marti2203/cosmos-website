@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="col s12 l12">
+    <div class="card grey lighten-5">
+        <div class="card-content">
+            <div class="card-image">
+              <img src="/static/assets/img/members_flat.jpg">
+              <span class="card-title">Your Profile <i class="material-icons left" style="">perm_identity</i></span>
+            </div>
+            <br/>
+            <form method="post" action="{% url 'update_profile' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td class="input-field">
+                        <input id="id" maxlength="254" name="id" class="validate" readonly type="text" value="{{ request.user.id }}" />
+                        <label for="id">ID</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="input-field">
+                        <input id="id_username" maxlength="254" name="email" class="validate" type="text" value="{{ request.user.email }}" />
+                        <label for="id_username">E-mail Address</label>
+                    </td>
+                </tr>
+            </table>
+                <button class="btn waves-effect waves-light" type="submit" value="login" name="action">Change
+                    <i class="material-icons right">send</i>
+                </button>
+
+                <input type="hidden" name="next" value="/" />
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

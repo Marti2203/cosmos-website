@@ -1,0 +1,74 @@
+{% load cms_tags menu_tags sekizai_tags %}
+
+<!doctype html>
+<!-- if not logged in & page requires logged in, redirect to /login/ -->
+<html lang="en">
+    <head>
+        <title>{% block title %}This is my new project home page{% endblock title %}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+        <!-- CSS  -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="/static/assets/css/materialize/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+        <link href="/static/assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+        <link rel="icon" href="/static/assets/img/favicon.ico">
+
+        {% render_block "css" %}
+    </head>
+    <body class="grey darken-2">
+        {% cms_toolbar %}
+        <div class="wrapper">
+            {% show_menu 0 100 100 100 "menu/menu.html" %}
+            {% show_breadcrumb "menu/breadcrumbs.html" %}
+            <div class="container">
+                <div class="content">
+                {% block content %}
+                {% endblock content %}
+                </div>
+            </div>
+
+            <footer class="page-footer grey darken-1">
+                <div class="container">
+                    <div class="row">
+                        <div class="col l6 s12">
+                            <a id="logo-container" href="/" class="brand-logo"><img src="/static/assets/img/cosmos_white.png" style="height: 80px;"></a>
+                            <p class="grey-text text-lighten-4" style="font-size: 13px">Cosmos - The International Student Association of TU/e<br/>All Rights Reserved © 2017<br/>
+                            <a style="color: #ccc;" href="mailto:cosmos@tue.nl">cosmos@tue.nl </a><br/><br/>
+                            </p>
+                        </div>
+                         <div class="col l6 s12">
+                           	<a href="https://partnerprogramma.bol.com/click/click?p=1&t=url&s=48265&f=TXL&url=http%3A%2F%2Fwww.bol.com&name=Cosmos"><img src="/static/assets/img/bol.png" style="width: 45%">
+                    		</a>   
+                    		<a href="https://tue.nl"><img src="/static/assets/img/tue.png" style="width: 45%">
+                    		</a>                     </div>
+                    </div>
+                </div>
+                <div class="footer-copyright">
+                    <div class="container">
+                        Managed by Cosmos <cms-plugin alt="Link - Webcommittee " id="16" render-plugin="true" title="Link - Webcommittee"><a style="color: #ccc;" href="/association/committees/">Website Committee</a></cms-plugin> - last updated 14-4-2017
+                    </div>
+                </div>
+            </footer>
+            {% render_block "js" %}
+            <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script src="/static/assets/js/materialize/materialize.js"></script>
+            <script src="/static/assets/js/materialize/init.js"></script>
+            <script type="text/javascript" src="/static/assets/js/jquery.matchHeight.js"></script>
+            <!-- Matches the height of all columns in a row -->
+            <script type="text/javascript">
+            /* matchHeight of columns */
+
+            $(function() {
+                // apply your matchHeight on DOM ready (they will be automatically re-applied on load or resize)
+                // apply matchHeight to each item container's items
+                $('.row').each(function() {
+                    $(this).children('.col').matchHeight({
+
+                        //byRow: byRow
+                    });
+                });
+            });
+            </script>
+        </div>
+    </body>
+</html>
