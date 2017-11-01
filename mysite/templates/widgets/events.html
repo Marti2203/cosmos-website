@@ -5,9 +5,9 @@
 // Placeholder for content being added to the div.
 var html_out = '';
 // Retrieve Facebook JSON response from Django backend.
-// This is terrible 
+// This is terrible
 // TODO: make not terrible
-var text = '{{ instance.variable }}'.replace(/&quot;/g,'\\"').replace(/&#39;: /g,'": ').replace(/: &#39;/g,': "').replace(/{&#39;/g,'{"').replace(/&#39;}/g,'"}').replace(/&#39;,/g,'",').replace(/, &#39;/g,', "').replace(/&#39;/g, "'").replace(/(\r\n|\n|\r)/gm," ").replace(/&amp;/g,'&').replace("-\t","").replace(/\t/gm,'').replace(" -	"," ").replace(/"\": '"/g, "\": \"").replace(/\": \\\"/g, "\": \"").replace(/\\\", \"/g, "\", \"");
+var text = '{{ instance.variable }}'.replace(/&quot;/g,'\\"').replace(/&#39;: /g,'": ').replace(/: &#39;/g,': "').replace(/{&#39;/g,'{"').replace(/&#39;}/g,'"}').replace(/&#39;,/g,'",').replace(/, &#39;/g,', "').replace(/&#39;/g, "'").replace(/(\r\n|\n|\r)/gm," ").replace(/&amp;/g,'&').replace("-\t","").replace(/\t/gm,'').replace(" -	"," ").replace(/"\": '"/g, "\": \"").replace(/\": \\\"/g, "\": \"").replace(/\\\", \"/g, "\", \"").replace(/\\"}/g, "\"}");
 console.log(text);
 var json = JSON.parse(text);
 console.log(json);
@@ -22,9 +22,9 @@ for (event in json['events']['data']) {
 		')" ><span class="card-title" style="background-color: rgba(0,0,0,0.25); width: 100%; height: 100%; font-weight: bold; text-align: center;">'+
 			json['events']['data'][event]['name'] + '<br/>(' + json['events']['data'][event]['start_time'].substring(0,10) + ')'
 		+ '</span></div><div class="card-content" style="height: 250px; overflow: scroll;"><a href="#" style="color: black">'+
-		json['events']['data'][event]["description"] 
+		json['events']['data'][event]["description"]
 		+'</a><div class="card-action" style="z-index: 9999; background-color: white;"><a target="_blank" href="http://www.facebook.com/events/'+
-		json['events']['data'][event]["id"] 
+		json['events']['data'][event]["id"]
 		+'" style="color: black;">More Information...<i class="material-icons right">send</i></a></div></div></div></div>';
 }
 
