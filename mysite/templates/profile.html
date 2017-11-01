@@ -3,7 +3,7 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="col s12 l12">
+<div class="col s12 l6">
     <div class="card grey lighten-5">
         <div class="card-content">
             <div class="card-image">
@@ -16,18 +16,37 @@
             <table>
                 <tr>
                     <td class="input-field">
-                        <input id="id" maxlength="254" name="id" class="validate" readonly type="text" value="{{ request.user.id }}" />
+                        <input id="id" maxlength="254" name="id" class="validate" type="text" value="{{ request.user.id }}" />
                         <label for="id">ID</label>
                     </td>
                 </tr>
                 <tr>
                     <td class="input-field">
-                        <input id="id_username" maxlength="254" name="email" class="validate" type="text" value="{{ request.user.email }}" />
-                        <label for="id_username">E-mail Address</label>
+                        <input id="email" maxlength="254" name="email" class="validate" type="text" value="{{ request.user.email }}" />
+                        <label for="email">E-mail Address</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="input-field">
+                        <input id="first_name" maxlength="254" name="first_name" class="validate" type="text" value="{{ request.user.first_name }}" />
+                        <label for="first_name">First Name</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="input-field">
+                        <input id="last_name" maxlength="254" name="last_name" class="validate" type="text" value="{{ request.user.last_name }}" />
+                        <label for="last_name">Last Name</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="input-field">
+                        <input id="department" maxlength="254" name="department" class="validate" type="text" value="{{ request.user.profile.department }}" />
+                        <label for="department">Department</label>
                     </td>
                 </tr>
             </table>
-                <button class="btn waves-effect waves-light" type="submit" value="login" name="action">Change
+                <button class="btn waves-effect waves-light" type="submit" value="login" name="action">Update Profile
                     <i class="material-icons right">send</i>
                 </button>
 
