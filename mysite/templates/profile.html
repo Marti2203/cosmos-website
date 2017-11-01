@@ -36,4 +36,33 @@
         </div>
     </div>
 </div>
+<div id="modal-success" class="modal">
+    <div class="modal-content">
+        <h4>Success</h4>
+        <p>Your profile information was updated successfuly</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok, nice!</a>
+    </div>
+</div>
+<!-- TODO: MAKE NOT SKETCHY -->
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('.modal').modal();
+      var updated = getParameterByName('updated');
+      if (updated) {
+        $('#modal-success').modal('open');
+      }
+    });
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+</script>
 {% endblock %}
