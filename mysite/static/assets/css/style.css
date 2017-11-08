@@ -98,3 +98,13 @@
 .cms-dragitem-text strong {
     color: black;
 }
+
+.input-field input, .input-field .select-wrapper input{
+    background-color: #fefefe;
+
+    padding-left: 5px;
+    border: 1px solid lightgray;
+}
+.select-wrapper .caret {
+    z-index: 999;
+}

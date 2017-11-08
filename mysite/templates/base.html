@@ -39,7 +39,7 @@
                         </div>
                          <div class="col l6 s12">
                            	<a href="https://partnerprogramma.bol.com/click/click?p=1&t=url&s=48265&f=TXL&url=http%3A%2F%2Fwww.bol.com&name=Cosmos"><img src="/static/assets/img/bol.png" style="width: 45%">
-                    		</a>   
+                    		</a>
                     		<a href="https://tue.nl"><img src="/static/assets/img/tue.png" style="width: 45%">
                     		</a>                     </div>
                     </div>
@@ -51,7 +51,7 @@
                 </div>
             </footer>
             {% render_block "js" %}
-            
+
             <script src="/static/assets/js/materialize/materialize.js"></script>
             <script src="/static/assets/js/materialize/init.js"></script>
             <script type="text/javascript" src="/static/assets/js/jquery.matchHeight.js"></script>
@@ -69,6 +69,10 @@
                     });
                 });
             });
+            $(document).ready(function() {
+                $('select').material_select();
+              });
+
             </script>
         </div>
     </body>
