@@ -147,6 +147,11 @@
       if (updated) {
         $('#modal-success').modal('open');
       }
+
+      $('#gender option[value="{{ request.user.profile.gender }}"]').attr("selected", "selected");
+      $('#nationality option[value="{{ request.user.profile.nationality }}"]').attr("selected", "selected");
+      $('#department option[value="{{ request.user.profile.department }}"]').attr("selected", "selected");
+      $('#program option[value="{{ request.user.profile.program }}"]').attr("selected", "selected");
     });
 
     function getParameterByName(name, url) {
