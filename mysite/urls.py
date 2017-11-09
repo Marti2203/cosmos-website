@@ -26,6 +26,7 @@ urlpatterns = patterns('',
   url(r'^login/$', auth_views.login, name='login'),
   url(r'^logout/$', auth_views.logout, {'next_page': '/'}),
   url(r'^update-profile/$', views.update_profile, name='update_profile'),
+  url(r'^create-member/$', views.create_member, name='create_member'),
   url(r'^', include('cms.urls')),
 )
 
