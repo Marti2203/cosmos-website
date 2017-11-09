@@ -14,7 +14,7 @@ class RowPlugin(CMSPluginBase):
     model = ParentPlugin
     module = 'Structure'
     child_classes=['Column4Plugin', 'Column6Plugin', 'Column8Plugin', 'Column12Plugin', 'FacebookGallery','FacebookEvents']
-    allow_children = True 
+    allow_children = True
     def render(self, context, instance, placeholder):
         context = super(RowPlugin, self).render(context, instance, placeholder)
         return context
@@ -174,11 +174,15 @@ class FacebookGallery(CMSPluginBase):
 	module = 'Custom'
 
 	def render(self, context, instance, placeholder):
-		r =  requests.get('https://graph.facebook.com/v2.9/372136979547549/?fields=albums.limit(500){cover_photo{images},name,photo_count}&access_token=521350984877058|ucRdnLYj2pZpMmcfZQAaw-RcARg')
+		if "=" in context['request'].get_full_path():
+			album_id = context['request'].get_full_path().split('=')[1]
+			r = requests.get('https://graph.facebook.com/v2.9/'+album_id+'/?fields=photos.limit(1000){images},description,name&access_token=521350984877058|ucRdnLYj2pZpMmcfZQAaw-RcARg')
+		else:	
+			r = requests.get('https://graph.facebook.com/v2.9/372136979547549/?fields=albums.limit(500){cover_photo{images},name,photo_count}&access_token=521350984877058|ucRdnLYj2pZpMmcfZQAaw-RcARg')
 		instance.variable = r.json()
 		context = super(FacebookGallery, self).render(context, instance, placeholder)
 		return context
-	
+
 plugin_pool.register_plugin(FacebookGallery)
 
 class Slider(CMSPluginBase):
@@ -190,7 +194,7 @@ class Slider(CMSPluginBase):
 	def render(self, context, instance, placeholder):
 		context = super(Slider, self).render(context, instance, placeholder)
 		return context
-	
+
 plugin_pool.register_plugin(Slider)
 
 class FacebookEvents(CMSPluginBase):
@@ -204,5 +208,5 @@ class FacebookEvents(CMSPluginBase):
 		instance.variable = r.json()
 		context = super(FacebookEvents, self).render(context, instance, placeholder)
 		return context
-	
+
 plugin_pool.register_plugin(FacebookEvents)

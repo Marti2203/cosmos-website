@@ -108,3 +108,6 @@
 .select-wrapper .caret {
     z-index: 999;
 }
+.card-fixed-size {
+    height: 200px;
+}

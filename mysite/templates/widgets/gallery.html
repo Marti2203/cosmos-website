@@ -2,26 +2,62 @@
 <div id='fb-albums'></div>
 
 <script type='text/javascript'>
-// Placeholder for content being added to the div.
-var html_out = '';
-// Retrieve Facebook JSON response from Django backend.
-// Check out this amazing regex I did (xoxo Niels)
-var text = '{{ instance.variable }}'.replace(/&quot;/g,'&#39;').replace(/&#39;: /g,'": ').replace(/: &#39;/g,': "').replace(/{&#39;/g,'{"').replace(/&#39;}/g,'"}').replace(/&#39;,/g,'",').replace(/, &#39;/g,', "').replace(/&#39;/g, "'").replace(/(\r\n|\n|\r)/gm," ").replace(/&amp;/g,'&');
-var json = JSON.parse(text);
+$(document).ready(function(){
+	var album_view = getParameterByName('album');
+	var text = '{{ instance.variable }}'.replace(/&quot;/g,'&#39;').replace(/&#39;: /g,'": ').replace(/: &#39;/g,': "').replace(/{&#39;/g,'{"').replace(/&#39;}/g,'"}').replace(/&#39;,/g,'",').replace(/, &#39;/g,', "').replace(/&#39;/g, "'").replace(/(\r\n|\n|\r)/gm," ").replace(/&amp;/g,'&');
+	var json = JSON.parse(text);
+	var html_out = '';
+	if (album_view) {
+		// Render album with id 'album_view'
+		document.getElementById("breadcrumbs").innerHTML += '<a class="breadcrumb" href="/association/photos/?album='+ getParameterByName('album')+'">'+json["name"]+'</a>';
+		for (photo in json['photos']['data']) {
 
-// Render albums
-for (album in json['albums']['data']) {
-	if(json['albums']['data'][album]['name'] != 'Profile Pictures' && json['albums']['data'][album]['name'] != 'Timeline Photos' && json['albums']['data'][album]['name'] != 'Mobile Uploads'){
-		html_out += '<div class="col s12 m6 l4"><div class="card"><div class="card-image" style="height: 300px; background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url('+
-		json['albums']['data'][album]['cover_photo']['images'][2]['source'] +
-		')" ><span class="card-title" style="background-color: rgba(0,0,0,0.15); width: 100%; height: 100%; font-weight: bold; text-align: center;">'+
-			json['albums']['data'][album]['name'] 
-		+ '</span></div><div class="card-action"><a href="#" style="color: black">View '+
-		json['albums']['data'][album]['photo_count'] 
-		+' Photos<i class="material-icons right">send</i></a></div></div></div>';
+			html_out += '<div class="col s12 m6 l3">';
+			html_out +='<div class="card" style="background-color: gray; ">';
+			// Cover photo of album
+			html_out +='<div class="card-image card-fixed-size materialboxed" style="background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url('+json['photos']['data'][photo]['images'][0]['source'] +')" >';
+
+			html_out += '</div>';
+
+			html_out+='</div>';
+			html_out+='</div>';
+
+		}
+
+	}else{
+		for (album in json['albums']['data']) {
+			if(json['albums']['data'][album]['name'] != 'Profile Pictures' && json['albums']['data'][album]['name'] != 'Timeline Photos' && json['albums']['data'][album]['name'] != 'Mobile Uploads'){
+
+				html_out += '<div class="col s12 m6 l4">';
+				html_out +='<div class="card">';
+				// Cover photo of album
+				html_out +='<div class="card-image" style="height: 300px; background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url('+json['albums']['data'][album]['cover_photo']['images'][2]['source'] +')" >';
+				// Album title
+				html_out +='<span class="card-title" style="background-color: rgba(0,0,0,0.15); width: 100%; height: 100%; font-weight: bold; text-align: center;">'+ json['albums']['data'][album]['name']+ '</span>';
+				html_out += '</div>';
+				// Link to album
+				html_out += '<div class="card-action">';
+				html_out += '<a href="?album='+ json['albums']['data'][album]['id'] +'" style="color: black">View '+
+				json['albums']['data'][album]['photo_count'] +' Photos<i class="material-icons right">send</i></a>';
+				html_out+='</div>';
+				html_out+='</div>';
+				html_out+='</div>';
+			}
+		}
+
 	}
+	document.getElementById("fb-albums").innerHTML = html_out;
+	 $('.materialboxed').materialbox();
+});
+function getParameterByName(name, url) {
+	if (!url) url = window.location.href;
+	name = name.replace(/[\[\]]/g, "\\$&");
+	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	results = regex.exec(url);
+	if (!results) return null;
+	if (!results[2]) return '';
+	return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
-
 // Add results to HTML file.
-document.getElementById("fb-albums").innerHTML = html_out;
+
 </script>
