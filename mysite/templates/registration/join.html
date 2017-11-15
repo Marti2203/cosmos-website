@@ -53,7 +53,6 @@
                           <option value="" selected disabled></option>
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
-                          <option value="Other">Other</option>
                         </select>
 
                         <label for="gender">Gender</label>
@@ -126,22 +125,36 @@
         </div>
     </div>
 </div>
-<div id="modal-success" class="modal">
+<div id="modal" class="modal">
     <div class="modal-content">
-        <h4>Success</h4>
-        <p>Your profile information was updated successfuly</p>
+        <h4 id="modal-title"></h4>
+        <p id="modal-message"></p>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok, nice!</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="modal-ok-button"></a>
     </div>
 </div>
 <!-- TODO: MAKE NOT SKETCHY -->
 <script type="text/javascript">
     $(document).ready(function(){
       $('.modal').modal();
-      var updated = getParameterByName('updated');
-      if (updated) {
-        $('#modal-success').modal('open');
+      var joined = getParameterByName('joined');
+      if (joined == 'true') {
+        $('#modal-title').text('Welcome!');
+        $('#modal-message').text('Your account has been created successfully, welcome to Cosmos!');
+        $('#modal-ok-button').text('Ok, nice!');
+        $('#modal').modal('open');
+      } else if (joined == 'false') {
+        var error = getParameterByName('error');
+        $('#modal-title').text('There was a problem...');
+        $('#modal-ok-button').text('Ok');
+        if(error == 'email-exists'){
+            $('#modal-message').text('There is already a user with this email in our system, please try with a different one.');
+            $('#modal').modal('open');
+        } else if (error == 'password'){
+            $('#modal-message').text('Your password and password confirmation do not match. Please make sure they are the same.');
+            $('#modal').modal('open');
+        }
       }
     });
 

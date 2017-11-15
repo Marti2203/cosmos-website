@@ -47,6 +47,10 @@ def update_profile(request):
 def create_member(request):
 	if request.method == 'POST':
 		email = request.POST['email']
+		if User.objects.filter(username=email).exists():
+			return redirect('/join?joined=false&error=email-exists')
+		if request.POST['password'] != request.POST['password-confirm']:
+			return redirect('/join?joined=false&error=password')
 		
 		user = User.objects.create_user(email)
 		first_name = request.POST['first_name']

@@ -130,10 +130,10 @@
         </div>
     </div>
 </div>
-<div id="modal-success" class="modal">
+<div id="modal" class="modal">
     <div class="modal-content">
-        <h4>Success</h4>
-        <p>Your profile information was updated successfuly</p>
+        <h4 id="modal-title">Success</h4>
+        <p id="modal-message">Your profile information was updated successfuly</p>
     </div>
     <div class="modal-footer">
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok, nice!</a>
@@ -144,8 +144,8 @@
     $(document).ready(function(){
       $('.modal').modal();
       var updated = getParameterByName('updated');
-      if (updated) {
-        $('#modal-success').modal('open');
+      if (updated == 'true') {
+        $('#modal').modal('open');
       }
 
       $('#gender option[value="{{ request.user.profile.gender }}"]').attr("selected", "selected");
