@@ -3,42 +3,27 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 
+def set_values(object, values, fields):
+	for field in fields:
+		setattr(object, field, values[field])
+	return object
+
 # TODO: Proper django form
 def update_profile(request):
 	if request.method == 'POST':
 		if request.user.is_authenticated():
+			email = request.POST['email']
+			if User.objects.filter(username=email).exists():
+				return redirect('/profile?updated=false&error=email-exists')
+
 			user = User.objects.get(id=int(request.user.id))
 
-			first_name = request.POST['first_name']
-			user.first_name = first_name
-
-			last_name = request.POST['last_name']
-			user.last_name = last_name
-
-			email = request.POST['email']
-			user.email = email
+			fields = ['first_name', 'last_name', 'email']
+			user = set_values(user, request.POST, fields)
 			user.username = email
 
-			department = request.POST['department']
-			user.profile.department = department
-
-			program = request.POST['program']
-			user.profile.program = program
-
-			nationality = request.POST['nationality']
-			user.profile.nationality = nationality
-
-			tue_id = request.POST['tue_id']
-			user.profile.tue_id = tue_id
-
-			phone_nr = request.POST['phone_nr']
-			user.profile.phone_nr = phone_nr
-
-			gender = request.POST['gender']
-			user.profile.gender = gender
-
-			card_number = request.POST['card_number']
-			user.profile.card_number = card_number
+			fields = ['department', 'program', 'nationality', 'tue_id', 'phone_nr', 'gender', 'card_number']
+			user.profile = set_values(user.profile, request.POST, fields)
 
 			user.save()
 			return redirect('/profile?updated=true')
@@ -53,34 +38,13 @@ def create_member(request):
 			return redirect('/join?joined=false&error=password')
 		
 		user = User.objects.create_user(email)
-		first_name = request.POST['first_name']
-		user.first_name = first_name
 
-		last_name = request.POST['last_name']
-		user.last_name = last_name
-
+		fields = ['first_name', 'last_name']
+		user = set_values(user, request.POST, fields)
 		user.email = email
 
-		department = request.POST['department']
-		user.profile.department = department
-
-		program = request.POST['program']
-		user.profile.program = program
-
-		nationality = request.POST['nationality']
-		user.profile.nationality = nationality
-
-		tue_id = request.POST['tue_id']
-		user.profile.tue_id = tue_id
-
-		phone_nr = request.POST['phone_nr']
-		user.profile.phone_nr = phone_nr
-
-		gender = request.POST['gender']
-		user.profile.gender = gender
-
-		card_number = request.POST['card_number']
-		user.profile.card_number = card_number
+		fields = ['department', 'program', 'nationality', 'tue_id', 'phone_nr', 'gender', 'card_number']
+		user.profile = set_values(user.profile, request.POST, fields)
 
 		user.password = make_password(request.POST['password'])
 		user.profile.key_access = 'No'

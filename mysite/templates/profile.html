@@ -132,11 +132,11 @@
 </div>
 <div id="modal" class="modal">
     <div class="modal-content">
-        <h4 id="modal-title">Success</h4>
-        <p id="modal-message">Your profile information was updated successfuly</p>
+        <h4 id="modal-title"></h4>
+        <p id="modal-message"></p>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok, nice!</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="modal-ok-button"></a>
     </div>
 </div>
 <!-- TODO: MAKE NOT SKETCHY -->
@@ -145,7 +145,18 @@
       $('.modal').modal();
       var updated = getParameterByName('updated');
       if (updated == 'true') {
+        $('#modal-title').text('Success!');
+        $('#modal-message').text('Your profile information was updated successfuly');
+        $('#modal-ok-button').text('Ok, nice!');
         $('#modal').modal('open');
+      } else if (updated == 'false') {
+        var error = getParameterByName('error');
+        $('#modal-title').text('There was a problem...');
+        $('#modal-ok-button').text('Ok');
+        if(error == 'email-exists'){
+            $('#modal-message').text('There is already a user with this email in our system, please try with a different one.');
+            $('#modal').modal('open');
+        }
       }
 
       $('#gender option[value="{{ request.user.profile.gender }}"]').attr("selected", "selected");
