@@ -88,11 +88,48 @@
 			{% endif %}
 		</ul>
 		<ul id="nav-mobile" class="side-nav">
-			<h4> Project Name </h4>
-			<li><a href="#">Menu 1</a></li>
-			<li><a href="#">Menu 2</a></li>
-			<li><a href="#">Menu 3</a></li>
-			<li><a href="#">Menu 4</a></li>
+			{% for main in children %}
+				{% for child in main.children %}
+					{% if child.get_menu_title == "Join" and request.user.is_authenticated %}
+					{% else %}
+						{% if not request.user.is_authenticated and child.get_menu_title == "Members" %}
+
+						{% else %}
+							<li class="
+							{% if child.selected %}
+								active
+							{% endif %}
+							{% if child.ancestor %}
+								ancestor
+							{% endif %}
+							{% if child.sibling %}
+								sibling
+							{% endif %}
+							{% if child.descendant %}
+								descendant
+							{% endif %}">
+
+								{% if child.children %}
+									<a class="dropdown-button" data-beloworigin="true" href="{{ child.get_absolute_url }}" data-activates="{{ child.title }}-dropdown" >
+											{{ child.get_menu_title }}
+									 <i class="material-icons right">arrow_drop_down</i>
+									</a>
+								{% else %}
+									<!-- Common Room <b style="color: lightgreen;">&#9673;</b> -->
+									<a href="{{ child.get_absolute_url }}">
+									{% if child.get_menu_title == "Common Room" %}
+										{{ child.get_menu_title }} <span>&nbsp; &#10003;</span>
+									{% else %}
+										{{ child.get_menu_title }}
+									{% endif %}
+
+									</a>
+							    {% endif %}
+							</li>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
 		</ul>
 		<a href="#" data-activates="nav-mobile" class="button-collapse button-collapse-nav"><i class="material-icons">menu</i></a>
 	</div>
