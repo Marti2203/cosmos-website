@@ -55,7 +55,6 @@
 									 <i class="material-icons right">arrow_drop_down</i>
 									</a>
 								{% else %}
-									<!-- Common Room <b style="color: lightgreen;">&#9673;</b> -->
 									<a href="{{ child.get_absolute_url }}">
 									{% if child.get_menu_title == "Common Room" %}
 										{{ child.get_menu_title }} <span>&nbsp; &#10003;</span>
@@ -110,12 +109,16 @@
 							{% endif %}">
 
 								{% if child.children %}
-									<a class="dropdown-button" data-beloworigin="true" href="{{ child.get_absolute_url }}" data-activates="{{ child.title }}-dropdown" >
+									<a class="dropdown-button" data-beloworigin="true" href="{{ child.get_absolute_url }}" data-activates="{{ child.title }}-mobile-dropdown" >
 											{{ child.get_menu_title }}
 									 <i class="material-icons right">arrow_drop_down</i>
 									</a>
+									<ul id="{{ child.title }}-mobile-dropdown" class="dropdown-content">
+									{% for nested_child in child.children %}
+										<li><a href="{{ nested_child.get_absolute_url }}">{{ nested_child.get_menu_title }}</a></li>
+									{% endfor %}
+									</ul>
 								{% else %}
-									<!-- Common Room <b style="color: lightgreen;">&#9673;</b> -->
 									<a href="{{ child.get_absolute_url }}">
 									{% if child.get_menu_title == "Common Room" %}
 										{{ child.get_menu_title }} <span>&nbsp; &#10003;</span>
@@ -130,6 +133,24 @@
 					{% endif %}
 				{% endfor %}
 			{% endfor %}
+			<!-- Logged in ? -->
+			{% if request.user.is_authenticated %}
+				<li style="background-color: rgba(0,0,0,0.05)">
+					<a class="dropdown-button" data-beloworigin="true" href="#" data-activates="profile-mobile-dropdown" >
+						 <i class="material-icons left" style="">perm_identity</i>{{ request.user.first_name }}
+				   </a>
+					<ul id="profile-mobile-dropdown" class="dropdown-content">
+						<li><a href="/profile/">Profile</a></li>
+						<li><a href="/logout/">Logout</a></li>
+					</ul>
+				</li>
+			{% else %}
+				<li style="background-color: rgba(0,0,0,0.05)">
+					<a href="/login/">
+						 Login
+					</a>
+				</li>
+			{% endif %}
 		</ul>
 		<a href="#" data-activates="nav-mobile" class="button-collapse button-collapse-nav"><i class="material-icons">menu</i></a>
 	</div>
