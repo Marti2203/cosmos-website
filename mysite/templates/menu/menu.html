@@ -7,7 +7,7 @@
 		{% if child.children %}
 			<ul id="{{ child.title }}-dropdown" class="dropdown-content">
 			{% for nested_child in child.children %}
-				<li><a href="{{ nested_child.get_absolute_url }}">{{ nested_child.get_menu_title }}</a></li>
+				<li><a href="{{ nested_child.get_absolute_url }}" class="blue-text text-darken-1">{{ nested_child.get_menu_title }}</a></li>
 			{% endfor %}
 			</ul>
 		{% endif %}
@@ -16,15 +16,15 @@
 	<!-- Logged in ? -->
 	{% if request.user.is_authenticated %}
 	<ul id="profile-dropdown" class="dropdown-content">
-		<li><a href="/profile/">Profile</a></li>
-		<li><a href="/logout/">Logout</a></li>
+		<li><a href="/profile/" class="blue-text text-darken-1">Profile</a></li>
+		<li><a href="/logout/" class="blue-text text-darken-1">Logout</a></li>
 	</ul>
 	{% endif %}
 
 {% endfor %}
 
 
-<nav class="light-blue lighten-1" role="navigation">
+<nav class="dark-blue-bg" role="navigation">
 	<div class="nav-wrapper container">
 		<a id="logo-container" href="/" class="brand-logo"><img src="/static/assets/img/cosmos_white_horizontal.png" style="height: 60px;"></a>
 		<ul class="right hide-on-med-and-down">

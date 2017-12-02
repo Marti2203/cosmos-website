@@ -26,6 +26,14 @@
     padding-left: 10px;
     padding-right: 10px;
 }
+.breadcrumbs{
+    height: 40px;
+    line-height: 40px;
+}
+
+.breadcrumb{
+    font-size: 16px;
+}
 
 /* Mobile Collapse Button */
 .button-collapse-nav {
@@ -110,4 +118,19 @@
 }
 .card-fixed-size {
     height: 200px;
+}
+
+
+
+/* Colors */
+.dark-blue{
+    color: #053d58 !important;
+}
+
+.dark-blue-bg{
+    background-color: #053d58 !important;
+}
+
+.dropdown-content li > a {
+
 }

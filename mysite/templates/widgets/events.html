@@ -21,7 +21,7 @@ for (event in json['events']['data']) {
 		json['events']['data'][event]["cover"]["source"] +
 		')" ><span class="card-title" style="background-color: rgba(0,0,0,0.25); width: 100%; height: 100%; font-weight: bold; text-align: center;">'+
 			json['events']['data'][event]['name'] + '<br/>(' + json['events']['data'][event]['start_time'].substring(0,10) + ')'
-		+ '</span></div><div class="card-content" style="height: 250px; overflow: scroll;"><a href="#" style="color: black">'+
+		+ '</span></div><div class="card-content" style="height: 250px; overflow: scroll;"><a href="#" class="dark-blue">'+
 		json['events']['data'][event]["description"]
 		+'</a><div class="card-action" style="z-index: 9999; background-color: white;"><a target="_blank" href="http://www.facebook.com/events/'+
 		json['events']['data'][event]["id"]

@@ -1,5 +1,5 @@
 {% load cms_tags %}
-<div class="card {{ instance.color_class }}">
+<div class="card grey lighten-5">
     <div class="card-image">
         <img src="{{ instance.image_url }}">
         {% if instance.image_title != '' %}
@@ -14,6 +14,6 @@
         {% endfor %}
     </div>
         <div class="card-action white">
-            <a style="color: black; font-weight: bold;" href="{{ instance.link_destination }}"> {{ instance.link_text }}<i class="material-icons right">send</i></a>
+            <a style="font-weight: bold;" class="{{ instance.color_class }}" href="{{ instance.link_destination }}"> {{ instance.link_text }}<i class="material-icons right">send</i></a>
         </div>
 </div>
