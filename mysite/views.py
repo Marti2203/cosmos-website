@@ -2,6 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+from django.template.loader import get_template
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 def set_values(object, values, fields):
 	for field in fields:
@@ -52,3 +55,47 @@ def create_member(request):
 
 		user.save()
 		return redirect('/join?joined=true')
+
+def list_requests(request):
+	if request.user.is_authenticated and request.user.is_staff:
+
+		join_requests = User.objects.filter(profile__member_type='Pending')
+		request_context = RequestContext(request, {"requests": join_requests})
+
+		return render_to_response('request-list.html', request_context)
+	return redirect('/login')
+
+def accept_request(request):
+	if request.user.is_authenticated and request.user.is_staff:
+
+		id = request.GET.get('id')
+		if id is None:
+			return redirect('/requests')
+		try:
+			user = User.objects.get(id=id)
+		except User.DoesNotExist:
+			return redirect('/requests')
+
+		user.profile.member_type = 'Member'
+		user.save()
+
+		return redirect('/requests')
+	return redirect('/login')
+
+# For now it just makes the user's member_type "rejected". Will consider deleting from DB
+def reject_request(request):
+	if request.user.is_authenticated and request.user.is_staff:
+
+		id = request.GET.get('id')
+		if id is None:
+			return redirect('/requests')
+		try:
+			user = User.objects.get(id=id)
+		except User.DoesNotExist:
+			return redirect('/requests')
+
+		user.profile.member_type = 'Rejected'
+		user.save()
+
+		return redirect('/requests')
+	return redirect('/login')

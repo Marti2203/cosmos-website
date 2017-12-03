@@ -131,6 +131,11 @@
     background-color: #053d58 !important;
 }
 
-.dropdown-content li > a {
-
+.request-action{
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    margin-left: 30px;
+}
+.request-action:hover{
+    border: 1px solid black;
 }

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} Join Requests {% endblock %}
+
+{% block content %}
+
+<div class="col s12 l6">
+    <div class="card grey lighten-5">
+        <div class="card-content">
+            <h3 class="center">Join Requests</h3>
+            <div class="collection">
+            {% for r in requests %}
+
+                <a href="javascript:;" class="collection-item dark-blue">
+                    <b>{{r.first_name}}</b>
+                    <i class="material-icons green-text secondary-content request-action"
+                       onclick="javascript:window.location.href='/accept-request?id={{r.id}}';">check</i>
+                    <i class="material-icons red-text secondary-content request-action"
+                       onclick="javascript:window.location.href='/reject-request?id={{r.id}}';">close</i>
+                </a>
+                <!--<div>-->
+
+                <!--</div>-->
+                <div class="collection-item">
+                    <p><b>First Name:</b> {{r.first_name}}</p>
+                    <p><b>Last Name:</b> {{r.last_name}}</p>
+                    <p><b>Email:</b> {{r.email}}</p>
+                    <p><b>Department:</b> {{r.profile.department}}</p>
+                    <p><b>Nationality:</b> {{r.profile.nationality}}</p>
+                    <p><b>Program:</b> {{r.profile.program}}</p>
+                    <p><b>Card Number:</b> {{r.profile.card_number}}</p>
+                    <p><b>Phone Number:</b> {{r.profile.phone_nr}}</p>
+                    <p><b>TU/e Id nr.:</b> {{r.profile.tue_id}}</p>
+                    <p><b>Key Access:</b> {{r.profile.key_access}} <b>[***<em>Should always be no</em>]</b></p>
+                    <p><b>Member Type:</b> {{r.profile.member_type}} <b>[***<em>Should always be pending</em>]</b> </p>
+
+                </div>
+
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
