@@ -1,33 +1,52 @@
-<!-- Cosmos Events are Rendered by JavaScript using the JSON provided by the Facebook API. -->
-<div id='fb-events'></div>
+<div id='fb-events'>
+    {% for event in instance.variable.events.data %}
 
-<script type='text/javascript'>
-// Placeholder for content being added to the div.
-var html_out = '';
-// Retrieve Facebook JSON response from Django backend.
-// This is terrible
-// TODO: make not terrible
-var text = '{{ instance.variable }}'.replace(/&quot;/g,'\\"').replace(/&#39;: /g,'": ').replace(/: &#39;/g,': "').replace(/{&#39;/g,'{"').replace(/&#39;}/g,'"}').replace(/&#39;,/g,'",').replace(/, &#39;/g,', "').replace(/&#39;/g, "'").replace(/(\r\n|\n|\r)/gm," ").replace(/&amp;/g,'&').replace("-\t","").replace(/\t/gm,'').replace(" -	"," ").replace(/"\": '"/g, "\": \"").replace(/\": \\\"/g, "\": \"").replace(/\\\", \"/g, "\", \"").replace(/\\"}/g, "\"}");
-console.log(text);
-var json = JSON.parse(text);
-console.log(json);
-// Convert to JSON.
+    <div class="col s12 m12 l6">
+        <div class="card">
+            <div class="card-image"
+                 style="height: 165px; background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url('{{event.cover.source}}')" >
+                <span class="card-title" style="background-color: rgba(0,0,0,0.25); width: 100%; height: 100%; font-weight: bold; text-align: center;">
+                    {{event.name}} <br>
+                    ({{ event.start_time|slice:":10" }})
+                </span>
+            </div>
+            <div class="card-content" style="height: 250px; overflow: scroll;">
+                <p href="#" class="dark-blue">
+                    {{event.description}}
+                </p>
+                <div class="card-action" style="z-index: 9999; background-color: white;">
+                    <a target="_blank" href="http://www.facebook.com/events/{{event.id}}"
+                       style="color: black;">
+                    More Information...
+                    <i class="material-icons right">send</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 
 
-// Render albums
-for (event in json['events']['data']) {
-		html_out += '<div class="col s12 m12 l6"><div class="card"><div class="card-image" style="height: 165px; background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url('+
-		json['events']['data'][event]["cover"]["source"] +
-		')" ><span class="card-title" style="background-color: rgba(0,0,0,0.25); width: 100%; height: 100%; font-weight: bold; text-align: center;">'+
-			json['events']['data'][event]['name'] + '<br/>(' + json['events']['data'][event]['start_time'].substring(0,10) + ')'
-		+ '</span></div><div class="card-content" style="height: 250px; overflow: scroll;"><a href="#" class="dark-blue">'+
-		json['events']['data'][event]["description"]
-		+'</a><div class="card-action" style="z-index: 9999; background-color: white;"><a target="_blank" href="http://www.facebook.com/events/'+
-		json['events']['data'][event]["id"]
-		+'" style="color: black;">More Information...<i class="material-icons right">send</i></a></div></div></div></div>';
-}
 
-// Add results to HTML file.
-document.getElementById("fb-events").innerHTML = html_out;
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
