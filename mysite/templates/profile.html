@@ -42,7 +42,7 @@
                           <option value="" selected disabled></option>
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
-                          <option value="Other">Other</option>
+                          <option value="Other">I'd rather not say</option>
                         </select>
 
                         <label for="gender">Gender</label>
@@ -146,8 +146,8 @@
       var updated = getParameterByName('updated');
       if (updated == 'true') {
         $('#modal-title').text('Success!');
-        $('#modal-message').text('Your profile information was updated successfuly');
-        $('#modal-ok-button').text('Ok, nice!');
+        $('#modal-message').text('Your profile information was updated successfully.');
+        $('#modal-ok-button').text('Continue');
         $('#modal').modal('open');
       } else if (updated == 'false') {
         var error = getParameterByName('error');

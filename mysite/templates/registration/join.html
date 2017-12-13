@@ -3,7 +3,7 @@
 {% block title %}Join{% endblock %}
 
 {% block content %}
-<div class="col s12 l6">
+<div class="col s12 m12 l6">
     <div class="card grey lighten-5">
         <div class="card-content">
             <div class="card-image">
@@ -53,6 +53,7 @@
                           <option value="" selected disabled></option>
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
+                          <option value="Other">I'd rather not say</option>
                         </select>
 
                         <label for="gender">Gender</label>
@@ -141,8 +142,8 @@
       var joined = getParameterByName('joined');
       if (joined == 'true') {
         $('#modal-title').text('Welcome!');
-        $('#modal-message').text('Your account has been created successfully, welcome to Cosmos!');
-        $('#modal-ok-button').text('Ok, nice!');
+        $('#modal-message').text('Your account has been created successfully, your information will be validated as soon as possible by our board members. As soon as your information is verified, you will receive an e-mail from us.');
+        $('#modal-ok-button').text('Continue');
         $('#modal').modal('open');
       } else if (joined == 'false') {
         var error = getParameterByName('error');
