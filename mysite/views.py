@@ -16,7 +16,7 @@ def update_profile(request):
 	if request.method == 'POST':
 		if request.user.is_authenticated():
 			email = request.POST['email']
-			if User.objects.filter(username=email).exists():
+			if request.user.email != email and User.objects.filter(username=email).exists():
 				return redirect('/profile?updated=false&error=email-exists')
 
 			user = User.objects.get(id=int(request.user.id))
