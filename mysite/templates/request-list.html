@@ -14,9 +14,9 @@
                 <a href="javascript:;" class="collection-item dark-blue">
                     <b>{{r.first_name}}</b>
                     <i class="material-icons green-text secondary-content request-action"
-                       onclick="javascript:window.location.href='/accept-request?id={{r.id}}';">check</i>
+                       onclick="accept({{r.id}})">check</i>
                     <i class="material-icons red-text secondary-content request-action"
-                       onclick="javascript:window.location.href='/reject-request?id={{r.id}}';">close</i>
+                       onclick="reject({{r.id}})">close</i>
                 </a>
                 <!--<div>-->
 
@@ -41,5 +41,16 @@
         </div>
     </div>
 </div>
+<script>
+    function accept(id){
+        window.location.href='/accept-request?id='+id;
+    }
+
+    function reject(id){
+        if(confirm('Are you sure you want to reject this request?')){
+            window.location.href='/reject-request?id='+id;
+        }
+    }
+</script>
 
 {% endblock content %}
