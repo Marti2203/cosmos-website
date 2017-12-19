@@ -84,3 +84,6 @@ target/
 
 #PyCharm
 .idea/
+
+#Static folder generated from collectstatic
+static/
