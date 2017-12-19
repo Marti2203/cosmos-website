@@ -4,7 +4,7 @@
 <script type='text/javascript'>
 $(document).ready(function(){
 	var album_view = getParameterByName('album');
-	var text = '{{ instance.variable }}'.replace(/&quot;/g,'&#39;').replace(/'u&#39;'/g,'&#39;').replace(/&#39;: /g,'": ').replace(/: &#39;/g,': "').replace(/{&#39;/g,'{"').replace(/&#39;}/g,'"}').replace(/&#39;,/g,'",').replace(/, &#39;/g,', "').replace(/&#39;/g, "'").replace(/(\r\n|\n|\r)/gm," ").replace(/&amp;/g,'&');
+	var text = '{{ instance.variable }}'.replace(/&quot;/g,'&#39;').replace(/u&#39;/g,'&#39;').replace(/&#39;: /g,'": ').replace(/: &#39;/g,': "').replace(/{&#39;/g,'{"').replace(/&#39;}/g,'"}').replace(/&#39;,/g,'",').replace(/, &#39;/g,', "').replace(/&#39;/g, "'").replace(/(\r\n|\n|\r)/gm," ").replace(/&amp;/g,'&');
 	var json = JSON.parse(text);
 	var html_out = '';
 	if (album_view) {
