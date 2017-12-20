@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
@@ -5,6 +6,9 @@ from django.contrib.auth.hashers import make_password
 from django.template.loader import get_template
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+
+from mysite.settings_pr import EMAIL_HOST_USER
+
 
 def set_values(object, values, fields):
 	for field in fields:
@@ -54,6 +58,30 @@ def create_member(request):
 		user.profile.member_type = 'Pending'
 
 		user.save()
+
+		message = "Dear " + user.first_name + ", \n \n Your account has been created successfully, your information " \
+											  "will be validated as soon as possible by our board members. As soon as " \
+											  "your information is verified, you will receive an e-mail from us. \n \n " \
+
+		# Email the user that just signed up
+		send_mail(
+			'Signup Confirmation',
+			message,
+			EMAIL_HOST_USER,
+			[user.email],
+			# fail_silently=False,
+		)
+
+		message = "Someone just signed up, please go to www.cosmostue.nl/requests to review his request."
+
+		# Email internal affairs to let them know someone signed up
+		send_mail(
+			'Someone just signed up',
+			message,
+			EMAIL_HOST_USER,
+			['internal.cosmos@tue.nl'],
+		)
+
 		return redirect('/join?joined=true')
 
 def list_requests(request):
@@ -79,6 +107,17 @@ def accept_request(request):
 		user.profile.member_type = 'Member'
 		user.save()
 
+		message = "Dear " + user.first_name + ", \n \n Your information has been verified and your account is now " \
+											  "activated. \n \n Best regards, \n The Cosmos Website Committee \n " \
+
+		# Email the user that just got accepted
+		send_mail(
+			'Your account has been verified',
+			message,
+			EMAIL_HOST_USER,
+			[user.email],
+		)
+
 		return redirect('/requests')
 	return redirect('/login')
 
@@ -96,6 +135,19 @@ def reject_request(request):
 
 		user.profile.member_type = 'Rejected'
 		user.save()
+
+		message = "Dear " + user.first_name + ", \n \n We regret to inform you that after reviewing your information, " \
+											  "your membership request has been rejected. If you would like to reach us, " \
+											  "you can do so sending an email to cosmos@tue.nl. \n \n " \
+											  "Best regards, \n The Cosmos Website Committee \n " \
+
+		# Email the user that just got accepted
+		send_mail(
+			'Your account has been verified',
+			message,
+			EMAIL_HOST_USER,
+			[user.email],
+		)
 
 		return redirect('/requests')
 	return redirect('/login')
