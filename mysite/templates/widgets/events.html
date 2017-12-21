@@ -2,7 +2,7 @@
     {% for event in instance.variable.events.data %}
 
     <div class="col s12 m12 l6">
-        <div class="card">
+        <div class="card action-card">
             <div class="card-image"
                  style="height: 165px; background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url('{{event.cover.source}}')" >
                 <span class="card-title" style="background-color: rgba(0,0,0,0.25); width: 100%; height: 100%; font-weight: bold; text-align: center;">
@@ -10,8 +10,8 @@
                     ({{ event.start_time|slice:":10" }})
                 </span>
             </div>
-            <div class="card-content" style="height: 250px; overflow: scroll;">
-                <p href="#" class="dark-blue">
+            <div class="card-content" style="height: 250px; overflow-y: scroll;">
+                <p href="#" class="dark-blue" style="margin-bottom: 20px;">
                     {{event.description}}
                 </p>
                 <div class="card-action" style="z-index: 9999; background-color: white;">
