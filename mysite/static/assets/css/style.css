@@ -65,14 +65,12 @@
 .col .card{
     height: 100%;
 }
-.col .card .card-content {
-    margin-bottom: 35px;
-}
+
 .col .card .card-action{
-    position: absolute;
     bottom: 0px;
     left: 0px;
     right: 0px;
+    position: absolute;
 }
 
 .row {
@@ -85,7 +83,9 @@
 	margin-bottom: 5px;
 	margin-top: 5px;
 }
-
+.action-card {
+	padding-bottom: 45px;
+}
 
 /* CMS related style customizations */
 .cms-toolbar-item-logo a:before {
