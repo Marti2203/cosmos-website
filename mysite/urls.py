@@ -23,7 +23,7 @@ urlpatterns = [
 
 urlpatterns = patterns('',
   url(r'^admin/', include(admin.site.urls)),
-#  url(r'^\.well-known/', include('letsencrypt.urls')),
+  url(r'^\.well-known/', include('letsencrypt.urls')),
   url(r'^login/$', auth_views.login, name='login'),
   url(r'^logout/$', auth_views.logout, {'next_page': '/'}),
   url(r'^update-profile/$', views.update_profile, name='update_profile'),

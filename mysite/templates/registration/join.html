@@ -7,10 +7,11 @@
     <div class="card grey lighten-5">
         <div class="card-content">
             <div class="card-image">
-              <img src="/static/assets/img/members_flat.jpg">
-              <span class="card-title">Join Form<i class="material-icons left" style="">perm_identity</i></span>
+              <img src="/static/assets/img/carousel/members_2017.jpg">
+              <span class="card-title">Join Cosmos<i class="material-icons left" style="">perm_identity</i></span>
             </div>
             <br/>
+            <p>Any student of TU/e can become a Cosmos member for free. To sign up, fill in your information below, and we will send an e-mail to confirm your registration. If you are having problems with your registration, feel free to contact us! <br/><br/>
             <form method="post" action="{% url 'create_member' %}">
             {% csrf_token %}
             <table>
@@ -104,13 +105,13 @@
                 </tr>
                 <tr>
                     <td class="input-field">
-                        <input id="tue_id" maxlength="254" name="tue_id" class="validate" type="text" required/>
-                        <label for="tue_id">TU/e Number</label>
+                        <input id="tue_id" maxlength="254" name="tue_id" class="validate" type="text" />
+                        <label for="tue_id">TU/e Number (Optional)</label>
                     </td>
 
                     <td class="input-field">
-                        <input id="card_number" maxlength="254" name="card_number" class="validate" type="text" required/>
-                        <label for="card_number">Campus Card Number</label>
+                        <input id="card_number" maxlength="254" name="card_number" class="validate" type="text" />
+                        <label for="card_number">Campus Card Number (Optional)</label>
                     </td>
                 </tr>
             </table>

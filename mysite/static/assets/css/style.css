@@ -5,7 +5,9 @@
  *
  * Made By MaterializeCSS.com
  */
-
+ #nav-mobile.dropdown-content {
+     display: contents;
+ }
 
 /* Materialize Icons */
 .icon-block {
@@ -30,6 +32,7 @@
     height: 40px;
     line-height: 40px;
 }
+
 
 .breadcrumb{
     font-size: 16px;

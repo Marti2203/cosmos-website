@@ -109,11 +109,11 @@
 							{% endif %}">
 
 								{% if child.children %}
-									<a class="dropdown-button" data-beloworigin="true" href="{{ child.get_absolute_url }}" data-activates="{{ child.title }}-mobile-dropdown" >
+									<a data-beloworigin="true" href="{{ child.get_absolute_url }}" data-activates="{{ child.title }}-mobile-dropdown" >
 											{{ child.get_menu_title }}
-									 <i class="material-icons right">arrow_drop_down</i>
+									 <!--<i class="material-icons right">arrow_drop_down</i>-->
 									</a>
-									<ul id="{{ child.title }}-mobile-dropdown" class="dropdown-content">
+									<ul id="{{ child.title }}-mobile-dropdown" class="dropdown-content" style="display: contents">
 									{% for nested_child in child.children %}
 										<li><a href="{{ nested_child.get_absolute_url }}">{{ nested_child.get_menu_title }}</a></li>
 									{% endfor %}
