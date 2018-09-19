@@ -172,7 +172,7 @@ class FacebookGallery(CMSPluginBase):
 	name = 'Facebook Gallery (Width 12)'
 	parent_classes=['RowPlugin']
 	module = 'Custom'
-
+        #TO-DO:UPDATE TOKEN 
 	def render(self, context, instance, placeholder):
 		if "=" in context['request'].get_full_path():
 			album_id = context['request'].get_full_path().split('=')[1]
@@ -204,9 +204,8 @@ class FacebookEvents(CMSPluginBase):
 	parent_classes=['RowPlugin']
 	module = 'Custom'
 	def render(self, context, instance, placeholder):
-		r =  requests.get('https://graph.facebook.com/v2.9/372136979547549/?fields=events.limit(40){cover,name,start_time,description}&access_token=521350984877058|ucRdnLYj2pZpMmcfZQAaw-RcARg')
+		r = requests.get('https://graph.facebook.com/v3.1/372136979547549/?fields=events.limit(40){cover,name,start_time,description}&access_token=EAAKJjBrYxBoBAFhEcUT0KZBUfAYZAfVYxLCveRLc8JSmkywdBTPvBR3c5eiL6sj2e8SgPZBaAEVAcvw4Tk1UvsxNhQD06Q8iEH9JBSWNH5LkCZB09n81t3lT7mgZBm16MyslWErJEsytCLgZAL2HtxNwZAU6BmHXvJX0qrzu8JomW92YLf2UPbO')
 		instance.variable = r.json()
 		context = super(FacebookEvents, self).render(context, instance, placeholder)
 		return context
-
 plugin_pool.register_plugin(FacebookEvents)
