@@ -104,7 +104,7 @@ def accept_request(request):
 		except User.DoesNotExist:
 			return redirect('/requests')
 
-		user.profile.member_type = 'Member'
+		user.profile.member_type = 'MEMBER'
 		user.save()
 
 		message = "Dear " + user.first_name + ", \n \n Your information has been verified and your account is now " \
