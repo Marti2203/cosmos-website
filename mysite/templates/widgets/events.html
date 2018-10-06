@@ -1,28 +1,77 @@
 <div id='fb-events'>
-    {% for event in instance.variable.events.data %}
+    {% for event in instance.future_events.events.data %}
+        {% if instance.future_events.events.data|length|divisibleby:"2" %}
+            <!-- If divisible by two it will always look nice -->
+            <div class="col s12 m12 l6">
+        {% else %}
+            {% if forloop.last %}
+                <!-- Last element should be page wide to prevent weird empty spaces -->
+                <div class="col s12 m12 l12">
+            {% else %}
+                <!-- It will look nice -->
+                <div class="col s12 m12 l6">
+            {% endif %}
+        {% endif %}
+            <div class="card action-card">
+                <div class="card-image"
+                     style="height: 165px; background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url('{{event.cover.source}}')" >
+                </div>
+                
+                {% if forloop.last and not instance.future_events.events.data|length|divisibleby:"2" %}
+                    <div class="card-content">
+                {% else %}
+                  <div class="card-content" style="height: 300px; overflow-y: scroll;">
+                {% endif %}
 
-    <div class="col s12 m12 l6">
-        <div class="card action-card">
-            <div class="card-image"
-                 style="height: 165px; background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url('{{event.cover.source}}')" >
-                <span class="card-title" style="background-color: rgba(0,0,0,0.25); width: 100%; height: 100%; font-weight: bold; text-align: center;">
-                    {{event.name}} <br>
-                    ({{ event.start_time|slice:":10" }})
-                </span>
-            </div>
-            <div class="card-content" style="height: 250px; overflow-y: scroll;">
-                <p href="#" class="dark-blue" style="margin-bottom: 20px;">
-                    {{event.description}}
-                </p>
-                <div class="card-action" style="z-index: 9999; background-color: white;">
-                    <a target="_blank" href="http://www.facebook.com/events/{{event.id}}"
-                       style="color: black;">
-                    More Information...
-                    <i class="material-icons right">send</i>
-                    </a>
+
+                    <span class="card-title"> {{event.name}} ({{ event.start_time|slice:":10" }})</span>
+                    <p href="#" class="dark-blue" style="margin-bottom: 20px;">
+                       {{ event.description }}
+                    </p>
+                    <div class="card-action" style="z-index: 9999; background-color: white;">
+                        <a target="_blank" href="http://www.facebook.com/events/{{event.id}}"
+                           style="color: black;">
+                        More Information...
+                        <i class="material-icons right">send</i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+    {% endfor %}
+
+    <div class="col s12 l12">
+        <div class="card grey lighten-5">
+            <div class="card-content">
+                <span class="card-title"> Past Events </span>
+                <p>These are the events that were recently organized by Cosmos. Keep a look out for yourself in the pictures! </p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    {% for event in instance.past_events.events.data %}
+    <div class="col s12 m12 l6">
+        <div class="card action-card">
+                <div class="card-image"
+                     style="height: 165px; background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url('{{event.cover.source}}')" >
+                </div>
+                <div class="card-content" style="height: 300px; overflow-y: scroll;">
+                    <span class="card-title"> {{event.name}} ({{ event.start_time|slice:":10" }})</span>
+                    <p href="#" class="dark-blue" style="margin-bottom: 20px;">
+                       {{ event.description }}
+                    </p>
+                    <div class="card-action" style="z-index: 9999; background-color: white;">
+                        <a target="_blank" href="http://www.facebook.com/events/{{event.id}}"
+                           style="color: black;">
+                        More Information...
+                        <i class="material-icons right">send</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
     </div>
     {% endfor %}
 </div>
