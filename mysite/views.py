@@ -7,7 +7,7 @@ from django.template.loader import get_template
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from mysite.settings_pr import EMAIL_HOST_USER
+from mysite.settings_pr import EMAIL_HOST_USER, DEFAULT_FROM_EMAIL
 
 
 def set_values(object, values, fields):
@@ -67,7 +67,7 @@ def create_member(request):
 		send_mail(
 			'Signup Confirmation',
 			message,
-			EMAIL_HOST_USER,
+			DEFAULT_FROM_EMAIL,
 			[user.email],
 			# fail_silently=False,
 		)
@@ -78,7 +78,7 @@ def create_member(request):
 		send_mail(
 			'Someone just signed up',
 			message,
-			EMAIL_HOST_USER,
+			DEFAULT_FROM_EMAIL,
 			['internal.cosmos@tue.nl'],
 		)
 
@@ -114,7 +114,7 @@ def accept_request(request):
 		send_mail(
 			'Your account has been verified',
 			message,
-			EMAIL_HOST_USER,
+			DEFAULT_FROM_EMAIL,
 			[user.email],
 		)
 
@@ -141,11 +141,11 @@ def reject_request(request):
 											  "you can do so sending an email to cosmos@tue.nl. \n \n " \
 											  "Best regards, \n The Cosmos Website Committee \n " \
 
-		# Email the user that just got accepted
+		# Email the user that just got rejected
 		send_mail(
 			'Your account has been verified',
 			message,
-			EMAIL_HOST_USER,
+			DEFAULT_FROM_EMAIL,
 			[user.email],
 		)
 
