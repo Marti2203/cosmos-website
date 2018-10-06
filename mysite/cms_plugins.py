@@ -204,8 +204,10 @@ class FacebookEvents(CMSPluginBase):
 	parent_classes=['RowPlugin']
 	module = 'Custom'
 	def render(self, context, instance, placeholder):
-		r = requests.get('https://graph.facebook.com/v3.1/372136979547549/?fields=events.limit(40){cover,name,start_time,description}&access_token=EAAKJjBrYxBoBAFhEcUT0KZBUfAYZAfVYxLCveRLc8JSmkywdBTPvBR3c5eiL6sj2e8SgPZBaAEVAcvw4Tk1UvsxNhQD06Q8iEH9JBSWNH5LkCZB09n81t3lT7mgZBm16MyslWErJEsytCLgZAL2HtxNwZAU6BmHXvJX0qrzu8JomW92YLf2UPbO')
-		instance.variable = r.json()
+		future_events = requests.get('https://graph.facebook.com/v3.1/372136979547549/?fields=events.time_filter(upcoming){cover,name,start_time,description}&access_token=EAAKJjBrYxBoBAFhEcUT0KZBUfAYZAfVYxLCveRLc8JSmkywdBTPvBR3c5eiL6sj2e8SgPZBaAEVAcvw4Tk1UvsxNhQD06Q8iEH9JBSWNH5LkCZB09n81t3lT7mgZBm16MyslWErJEsytCLgZAL2HtxNwZAU6BmHXvJX0qrzu8JomW92YLf2UPbO')
+		instance.future_events = future_events.json()
+		past_events = requests.get('https://graph.facebook.com/v3.1/372136979547549/?fields=events.time_filter(past).limit(16){cover,name,start_time,description}&access_token=EAAKJjBrYxBoBAFhEcUT0KZBUfAYZAfVYxLCveRLc8JSmkywdBTPvBR3c5eiL6sj2e8SgPZBaAEVAcvw4Tk1UvsxNhQD06Q8iEH9JBSWNH5LkCZB09n81t3lT7mgZBm16MyslWErJEsytCLgZAL2HtxNwZAU6BmHXvJX0qrzu8JomW92YLf2UPbO')
+		instance.past_events = past_events.json()
 		context = super(FacebookEvents, self).render(context, instance, placeholder)
 		return context
 plugin_pool.register_plugin(FacebookEvents)
