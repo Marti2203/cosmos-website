@@ -6,6 +6,8 @@ from django.contrib.auth.hashers import make_password
 from django.template.loader import get_template
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+import requests
+
 
 from mysite.settings_pr import EMAIL_HOST_USER, DEFAULT_FROM_EMAIL
 
@@ -43,7 +45,7 @@ def create_member(request):
 			return redirect('/join?joined=false&error=email-exists')
 		if request.POST['password'] != request.POST['password-confirm']:
 			return redirect('/join?joined=false&error=password')
-		
+
 		user = User.objects.create_user(email)
 
 		fields = ['first_name', 'last_name']
@@ -151,3 +153,21 @@ def reject_request(request):
 
 		return redirect('/requests')
 	return redirect('/login')
+
+# Retrieves images from facebook album. If album does not exist, the user is redirected to the albums page (/association/photos/)
+def display_album(request):
+	album_id = request.get_full_path().split("/")[-2] #Get album id. Url ends with /, so we split by '/' and get the second to last.
+	# TODO: SET TOKEN IN SETTINGS
+	TOKEN = "EAAKJjBrYxBoBAFhEcUT0KZBUfAYZAfVYxLCveRLc8JSmkywdBTPvBR3c5eiL6sj2e8SgPZBaAEVAcvw4Tk1UvsxNhQD06Q8iEH9JBSWNH5LkCZB09n81t3lT7mgZBm16MyslWErJEsytCLgZAL2HtxNwZAU6BmHXvJX0qrzu8JomW92YLf2UPbO"
+	API_VERSION = "v3.1"
+
+	r = requests.get('https://graph.facebook.com/%s/%s/?fields=photos.limit(1000){images},description,name&access_token=%s' % (API_VERSION, album_id, TOKEN))
+	if r.status_code != requests.codes.ok:
+		return redirect('/association/photos/')
+
+	template = get_template("/widgets/gallery_album.html")
+	context = RequestContext(request, {'album': r.json()})
+	html = template.render(context)
+
+	return HttpResponse(html)
+

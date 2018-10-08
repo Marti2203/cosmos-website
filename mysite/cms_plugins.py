@@ -4,6 +4,11 @@ from cms.models.pluginmodel import CMSPlugin
 from django.utils.translation import ugettext_lazy as _
 from .models import ParentPlugin, ColumnPlugin, Card, CardImageLink, CardImage, CardLink, FacebookGalleryModel, FacebookEventsModel, SliderModel
 import requests
+from time import sleep
+
+TOKEN = "EAAKJjBrYxBoBAFhEcUT0KZBUfAYZAfVYxLCveRLc8JSmkywdBTPvBR3c5eiL6sj2e8SgPZBaAEVAcvw4Tk1UvsxNhQD06Q8iEH9JBSWNH5LkCZB09n81t3lT7mgZBm16MyslWErJEsytCLgZAL2HtxNwZAU6BmHXvJX0qrzu8JomW92YLf2UPbO"
+COSMOS_ID = "372136979547549"
+API_VERSION = "v3.1"
 
 ##########################################
 # Structural Plugins (Rows, Columns)     #
@@ -164,50 +169,49 @@ plugin_pool.register_plugin(Card)
 
 
 ###################################################
-# Wisget Plugins (Facebook Gallery, Slider etc.)  #
+# Widget Plugins (Facebook Gallery, Slider etc.)  #
 ###################################################
+
+# Displays all facebook albums. Display of each album is done in custom view with template gallery_album
 class FacebookGallery(CMSPluginBase):
-	model = FacebookGalleryModel
-	render_template = '/widgets/gallery.html'
-	name = 'Facebook Gallery (Width 12)'
-	parent_classes=['RowPlugin']
-	module = 'Custom'
-        #TO-DO:UPDATE TOKEN 
-	def render(self, context, instance, placeholder):
-		if "=" in context['request'].get_full_path():
-			album_id = context['request'].get_full_path().split('=')[1]
-			r = requests.get('https://graph.facebook.com/v2.9/'+album_id+'/?fields=photos.limit(1000){images},description,name&access_token=521350984877058|ucRdnLYj2pZpMmcfZQAaw-RcARg')
-		else:	
-			r = requests.get('https://graph.facebook.com/v2.9/372136979547549/?fields=albums.limit(500){cover_photo{images},name,photo_count}&access_token=521350984877058|ucRdnLYj2pZpMmcfZQAaw-RcARg')
-		instance.variable = r.json()
-		context = super(FacebookGallery, self).render(context, instance, placeholder)
-		return context
+    model = FacebookGalleryModel
+    render_template = '/widgets/gallery.html'
+    name = 'Facebook Gallery (Width 12)'
+    parent_classes=['RowPlugin']
+    module = 'Custom'
+
+    def render(self, context, instance, placeholder):
+        r = requests.get('https://graph.facebook.com/%s/%s/?fields=albums.limit(500){cover_photo{images},name,photo_count}&access_token=%s' % (API_VERSION, COSMOS_ID, TOKEN))
+        instance.variable = r.json()
+        instance.context_m = context
+        context = super(FacebookGallery, self).render(context, instance, placeholder)
+        return context
 
 plugin_pool.register_plugin(FacebookGallery)
 
 class Slider(CMSPluginBase):
-	model = SliderModel
-	render_template = '/widgets/slider.html'
-	name = 'Slider (Width 12)'
-	parent_classes=['RowPlugin']
-	module = 'Custom'
-	def render(self, context, instance, placeholder):
-		context = super(Slider, self).render(context, instance, placeholder)
-		return context
+    model = SliderModel
+    render_template = '/widgets/slider.html'
+    name = 'Slider (Width 12)'
+    parent_classes=['RowPlugin']
+    module = 'Custom'
+    def render(self, context, instance, placeholder):
+        context = super(Slider, self).render(context, instance, placeholder)
+        return context
 
 plugin_pool.register_plugin(Slider)
 
 class FacebookEvents(CMSPluginBase):
-	model = FacebookEventsModel
-	render_template = '/widgets/events.html'
-	name = 'Facebook Events (Width 12)'
-	parent_classes=['RowPlugin']
-	module = 'Custom'
-	def render(self, context, instance, placeholder):
-		future_events = requests.get('https://graph.facebook.com/v3.1/372136979547549/?fields=events.time_filter(upcoming){cover,name,start_time,description}&access_token=EAAKJjBrYxBoBAFhEcUT0KZBUfAYZAfVYxLCveRLc8JSmkywdBTPvBR3c5eiL6sj2e8SgPZBaAEVAcvw4Tk1UvsxNhQD06Q8iEH9JBSWNH5LkCZB09n81t3lT7mgZBm16MyslWErJEsytCLgZAL2HtxNwZAU6BmHXvJX0qrzu8JomW92YLf2UPbO')
-		instance.future_events = future_events.json()
-		past_events = requests.get('https://graph.facebook.com/v3.1/372136979547549/?fields=events.time_filter(past).limit(16){cover,name,start_time,description}&access_token=EAAKJjBrYxBoBAFhEcUT0KZBUfAYZAfVYxLCveRLc8JSmkywdBTPvBR3c5eiL6sj2e8SgPZBaAEVAcvw4Tk1UvsxNhQD06Q8iEH9JBSWNH5LkCZB09n81t3lT7mgZBm16MyslWErJEsytCLgZAL2HtxNwZAU6BmHXvJX0qrzu8JomW92YLf2UPbO')
-		instance.past_events = past_events.json()
-		context = super(FacebookEvents, self).render(context, instance, placeholder)
-		return context
+    model = FacebookEventsModel
+    render_template = '/widgets/events.html'
+    name = 'Facebook Events (Width 12)'
+    parent_classes=['RowPlugin']
+    module = 'Custom'
+    def render(self, context, instance, placeholder):
+        future_events = requests.get('https://graph.facebook.com/%s/%s/?fields=events.time_filter(upcoming){cover,name,start_time,description}&access_token=%s' % (API_VERSION, COSMOS_ID, TOKEN))
+        instance.future_events = future_events.json()
+        past_events = requests.get('https://graph.facebook.com/%s/%s/?fields=events.time_filter(past).limit(16){cover,name,start_time,description}&access_token=%s' % (API_VERSION, COSMOS_ID, TOKEN))
+        instance.past_events = past_events.json()
+        context = super(FacebookEvents, self).render(context, instance, placeholder)
+        return context
 plugin_pool.register_plugin(FacebookEvents)
