@@ -90,6 +90,3 @@ static/
 
 #Environments
 env_cosmosweb_36/
-
-mysite/settings.py
-mysite/settings_pr.py
