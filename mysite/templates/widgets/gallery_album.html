@@ -15,16 +15,32 @@
 </div>
 
 <script type='text/javascript'>
+
+
+
+
 $(document).ready(function(){
-    // Build breadcrumbs
-    html_out = '<nav class="breadcrumbs grey lighten-1"><div class="nav-wrapper"><div class="container"><div class="col s12" id="breadcrumbs">'
-    html_out += '<a class="breadcrumb" href="/association/">Association</a>'
-    html_out += '<a class="breadcrumb" href="/association/photos">Photos</a>'
-    html_out += '<a class="breadcrumb" href="/association/photos/{{ album.id }}">{{ album.name }}</a>'
-    html_out += '</div></div></div></nav>'
-    $(html_out).insertAfter($('nav').last());
+
+    //if breadcrumbs have not ben created yet
+    if($("#breadcrumbs").length == 0) {
+        // Build breadcrumbs
+        html_out = '<nav class="breadcrumbs grey lighten-1"><div class="nav-wrapper"><div class="container"><div class="col s12" id="breadcrumbs">'
+        html_out += '<a class="breadcrumb" href="/association/">Association</a>'
+        html_out += '<a class="breadcrumb" href="/association/photos">Photos</a>'
+        html_out += '<a class="breadcrumb" href="/association/photos/{{ album.id }}">{{ album.name }}</a>'
+        html_out += '</div></div></div></nav>'
+        $(html_out).insertAfter($('nav').last());
+
+    } else {
+        html_out += '<a class="breadcrumb" href="/association/">Association</a>'
+        html_out += '<a class="breadcrumb" href="/association/photos">Photos</a>'
+        html_out += '<a class="breadcrumb" href="/association/photos/{{ album.id }}">{{ album.name }}</a>'
+        $("#breadcrumbs").html(html_out);
+    }
 
     $('.materialboxed').materialbox();
+
+
 
 });
 
