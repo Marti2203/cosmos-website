@@ -32,7 +32,7 @@ $(document).ready(function(){
         $(html_out).insertAfter($('nav').last());
 
     } else {
-        html_out += '<a class="breadcrumb" href="/association/">Association</a>'
+        html_out = '<a class="breadcrumb" href="/association/">Association</a>'
         html_out += '<a class="breadcrumb" href="/association/photos">Photos</a>'
         html_out += '<a class="breadcrumb" href="/association/photos/{{ album.id }}">{{ album.name }}</a>'
         $("#breadcrumbs").html(html_out);
