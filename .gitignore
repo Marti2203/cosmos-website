@@ -91,5 +91,9 @@ static/
 #Environments
 env_cosmosweb_36/
 
+#Settings files
 mysite/settings.py
 mysite/settings_pr.py
+
+#media folder (filer)
+media/
