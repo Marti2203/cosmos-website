@@ -4,11 +4,9 @@ from cms.models.pluginmodel import CMSPlugin
 from django.utils.translation import ugettext_lazy as _
 from .models import ParentPlugin, ColumnPlugin, Card, CardImageLink, CardImage, CardLink, FacebookGalleryModel, FacebookEventsModel, SliderModel
 import requests
-from time import sleep
+from mysite.settings_pr import API_VERSION, COSMOS_ID, TOKEN
 
-TOKEN = "EAAKJjBrYxBoBAFhEcUT0KZBUfAYZAfVYxLCveRLc8JSmkywdBTPvBR3c5eiL6sj2e8SgPZBaAEVAcvw4Tk1UvsxNhQD06Q8iEH9JBSWNH5LkCZB09n81t3lT7mgZBm16MyslWErJEsytCLgZAL2HtxNwZAU6BmHXvJX0qrzu8JomW92YLf2UPbO"
-COSMOS_ID = "372136979547549"
-API_VERSION = "v3.1"
+
 
 ##########################################
 # Structural Plugins (Rows, Columns)     #
