@@ -7,9 +7,14 @@ from django.template.loader import get_template
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 import requests
+import os
 
-
-from mysite.settings_pr import EMAIL_HOST_USER, DEFAULT_FROM_EMAIL
+# Check if in production environment or not
+if os.environ["DJANGO_SETTINGS_MODULE"] == "mysite.settings":
+	from mysite.settings import TOKEN
+else:
+	from mysite.settings_pr import EMAIL_HOST_USER, DEFAULT_FROM_EMAIL
+	from mysite.settings_pr import TOKEN, API_VERSION
 
 
 def set_values(object, values, fields):
@@ -157,9 +162,6 @@ def reject_request(request):
 # Retrieves images from facebook album. If album does not exist, the user is redirected to the albums page (/association/photos/)
 def display_album(request):
 	album_id = request.get_full_path().split("/")[-2] #Get album id. Url ends with /, so we split by '/' and get the second to last.
-	# TODO: SET TOKEN IN SETTINGS
-	TOKEN = "EAAKJjBrYxBoBAFhEcUT0KZBUfAYZAfVYxLCveRLc8JSmkywdBTPvBR3c5eiL6sj2e8SgPZBaAEVAcvw4Tk1UvsxNhQD06Q8iEH9JBSWNH5LkCZB09n81t3lT7mgZBm16MyslWErJEsytCLgZAL2HtxNwZAU6BmHXvJX0qrzu8JomW92YLf2UPbO"
-	API_VERSION = "v3.1"
 
 	r = requests.get('https://graph.facebook.com/%s/%s/?fields=photos.limit(1000){images},description,name&access_token=%s' % (API_VERSION, album_id, TOKEN))
 	if r.status_code != requests.codes.ok:
