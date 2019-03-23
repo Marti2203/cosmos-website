@@ -4,8 +4,13 @@ from cms.models.pluginmodel import CMSPlugin
 from django.utils.translation import ugettext_lazy as _
 from .models import ParentPlugin, ColumnPlugin, Card, CardImageLink, CardImage, CardLink, FacebookGalleryModel, FacebookEventsModel, SliderModel
 import requests
-from mysite.settings_pr import API_VERSION, COSMOS_ID, TOKEN
+import os
 
+# Check if in production environment or not
+if os.environ["DJANGO_SETTINGS_MODULE"] == "mysite.settings":
+	from mysite.settings import API_VERSION, COSMOS_ID, TOKEN
+else:
+	from mysite.settings_pr import API_VERSION, COSMOS_ID, TOKEN
 
 
 ##########################################
