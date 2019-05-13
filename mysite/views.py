@@ -11,7 +11,7 @@ import os
 
 # Check if in production environment or not
 if os.environ["DJANGO_SETTINGS_MODULE"] == "mysite.settings":
-	from mysite.settings import TOKEN
+	from mysite.settings import TOKEN, DEFAULT_FROM_EMAIL
 else:
 	from mysite.settings_pr import EMAIL_HOST_USER, DEFAULT_FROM_EMAIL
 	from mysite.settings_pr import TOKEN, API_VERSION
