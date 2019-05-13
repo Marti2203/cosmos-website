@@ -5,16 +5,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.template.loader import get_template
 from django.shortcuts import render_to_response
-from django.template import RequestContext
+# from django.template import RequestContext
 import requests
 import os
 
 # Check if in production environment or not
 if os.environ["DJANGO_SETTINGS_MODULE"] == "mysite.settings":
-	from mysite.settings import TOKEN
+	from mysite.settings import TOKEN, API_VERSION, DEFAULT_FROM_EMAIL
 else:
-	from mysite.settings_pr import EMAIL_HOST_USER, DEFAULT_FROM_EMAIL
-	from mysite.settings_pr import TOKEN, API_VERSION
+	from mysite.settings_pr import EMAIL_HOST_USER, DEFAULT_FROM_EMAIL, TOKEN, API_VERSION
 
 
 def set_values(object, values, fields):
@@ -95,9 +94,10 @@ def list_requests(request):
 	if request.user.is_authenticated and request.user.is_staff:
 
 		join_requests = User.objects.filter(profile__member_type='Pending')
-		request_context = RequestContext(request, {"requests": join_requests})
+		template = get_template("/request-list.html")
+		html = template.render({"requests": join_requests}, request)
 
-		return render_to_response('request-list.html', request_context)
+		return HttpResponse(html)
 	return redirect('/login')
 
 def accept_request(request):
@@ -168,8 +168,7 @@ def display_album(request):
 		return redirect('/association/photos/')
 
 	template = get_template("/widgets/gallery_album.html")
-	context = RequestContext(request, {'album': r.json()})
-	html = template.render(context)
+	html = template.render({'album': r.json()}, request)
 
 	return HttpResponse(html)
 

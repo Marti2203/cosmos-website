@@ -89,7 +89,7 @@ target/
 static/
 
 #Environments
-env_cosmosweb_36/
+env_*/
 
 #Settings files
 mysite/settings.py
