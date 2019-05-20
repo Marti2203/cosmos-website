@@ -82,3 +82,19 @@ def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
     except:
         Profile.objects.create(user=instance)
+
+
+class Token(models.Model):
+    token = models.CharField(max_length=100)
+    device = models.CharField(max_length=50) # the target entity that uses this token
+
+class Door(models.Model):
+    is_open = models.BooleanField(default=False)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Pi(models.Model):
+    ip = models.CharField(max_length=50)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+
