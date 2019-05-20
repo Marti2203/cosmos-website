@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.template.loader import get_template
+from .models import Token, Pi, Door
 from django.shortcuts import render_to_response
 # from django.template import RequestContext
 import requests
@@ -172,3 +173,38 @@ def display_album(request):
 
 	return HttpResponse(html)
 
+def display_door_status(request):
+	is_door_open = Door.objects.get(id=1).is_open
+
+	status = 'open' if is_door_open else 'closed'
+	return HttpResponse(status)
+
+def update_door_status(request):
+	try:
+		token = request.GET.get('access_token')
+		status = 1 if request.GET.get('status') == 'open' else 0
+
+		if Token.objects.filter(token=token).exists():
+			door = Door.objects.get(id=1)
+			door.is_open = status  # change field
+			door.save()
+			return HttpResponse("Updated door status")
+		return HttpResponse("Invalid token", status=401)
+	except Exception as e:
+		return HttpResponse("There was an error updating the door status", status=400)
+	return HttpResponse("Could not update door status", status=400)
+
+def update_pi_ip(request):
+	try:
+		token = request.GET.get('access_token')
+		ip = request.GET.get('ip')
+
+		if Token.objects.filter(token=token).exists():
+			pi = Pi.objects.get(id=1)
+			pi.ip = ip  # change field
+			pi.save()
+			return HttpResponse("Updated Pi IP")
+		return HttpResponse("Invalid token", status=401)
+	except Exception as e:
+		return HttpResponse("There was an error updating the IP", status=400)
+	return HttpResponse("Could not update IP", status=400)

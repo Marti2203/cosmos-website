@@ -25,6 +25,9 @@ urlpatterns = [url(r'^admin/', include(admin.site.urls)),
   url(r'^\.well-known/', include('letsencrypt.urls')),
   url(r'^login/$', auth_views.login, name='login'),
   url(r'^logout/$', auth_views.logout, {'next_page': '/'}),
+  url(r'^door-status/$', views.display_door_status, name='display_door_status'),
+  url(r'^door-status/update/$', views.update_door_status, name='update_door_status'),
+  url(r'^pi-ip/update/$', views.update_pi_ip, name='update_pi_ip'),
   url(r'^update-profile/$', views.update_profile, name='update_profile'),
   url(r'^create-member/$', views.create_member, name='create_member'),
   url(r'^requests/$', views.list_requests, name='list_requests'),
@@ -36,6 +39,7 @@ urlpatterns = [url(r'^admin/', include(admin.site.urls)),
   url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
   url(r'^association/photos/[0-9]*/$', views.display_album, name='album'),
   url(r'^', include('cms.urls')),
+
 ]
 
 # This is only needed when using runserver.
