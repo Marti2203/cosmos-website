@@ -57,7 +57,14 @@
 								{% else %}
 									<a href="{{ child.get_absolute_url }}">
 									{% if child.get_menu_title == "Common Room" %}
-										{{ child.get_menu_title }} <span>&nbsp; &#10003;</span>
+										{{ child.get_menu_title }} 
+										<span> 
+											{% if door_status %}
+											 <i class="fa fa-lock-open" aria-hidden="true" style="font-size:14px"></i> 
+											{% else %}
+											 <i class="fa fa-lock" aria-hidden="true" style="font-size:14px"></i> 
+											{% endif %}
+										</span>
 									{% else %}
 										{{ child.get_menu_title }}
 									{% endif %}
@@ -121,7 +128,14 @@
 								{% else %}
 									<a href="{{ child.get_absolute_url }}">
 									{% if child.get_menu_title == "Common Room" %}
-										{{ child.get_menu_title }} <span>&nbsp; &#10003;</span>
+										{{ child.get_menu_title }} 
+										<span> 
+											{% if door_status %}
+											 <i class="fa fa-lock-open" aria-hidden="true" style="font-size:14px"></i> 
+											{% else %}
+											 <i class="fa fa-lock" aria-hidden="true" style="font-size:14px"></i> 
+											{% endif %}
+										</span>
 									{% else %}
 										{{ child.get_menu_title }}
 									{% endif %}
