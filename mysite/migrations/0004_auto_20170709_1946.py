@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FacebookEventsModel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(to='cms.CMSPlugin', serialize=False, related_name='mysite_facebookeventsmodel', primary_key=True, auto_created=True, parent_link=True)),
+                ('cmsplugin_ptr', models.OneToOneField(to='cms.CMSPlugin', serialize=False, related_name='mysite_facebookeventsmodel', primary_key=True, on_delete=models.CASCADE,auto_created=True, parent_link=True)),
             ],
             options={
                 'abstract': False,

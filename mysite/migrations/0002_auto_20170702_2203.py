@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CardImage',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(serialize=False, related_name='mysite_cardimage', primary_key=True, parent_link=True, to='cms.CMSPlugin', auto_created=True)),
+                ('cmsplugin_ptr', models.OneToOneField(serialize=False, related_name='mysite_cardimage', primary_key=True, parent_link=True, to='cms.CMSPlugin', auto_created=True,on_delete=models.CASCADE)),
                 ('title_text', models.CharField(blank=True, max_length=50)),
                 ('content', djangocms_text_ckeditor.fields.HTMLField(blank=True)),
                 ('image_url', models.CharField(blank=True, default='', max_length=100)),
@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CardImageLink',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(serialize=False, related_name='mysite_cardimagelink', primary_key=True, parent_link=True, to='cms.CMSPlugin', auto_created=True)),
+                ('cmsplugin_ptr', models.OneToOneField(serialize=False, related_name='mysite_cardimagelink', primary_key=True, parent_link=True, to='cms.CMSPlugin', auto_created=True,on_delete=models.CASCADE)),
                 ('title_text', models.CharField(blank=True, max_length=50)),
                 ('content', djangocms_text_ckeditor.fields.HTMLField(blank=True)),
                 ('image_url', models.CharField(blank=True, default='', max_length=100)),
@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CardLink',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(serialize=False, related_name='mysite_cardlink', primary_key=True, parent_link=True, to='cms.CMSPlugin', auto_created=True)),
+                ('cmsplugin_ptr', models.OneToOneField(serialize=False, related_name='mysite_cardlink', primary_key=True, parent_link=True, to='cms.CMSPlugin', auto_created=True,on_delete=models.CASCADE)),
                 ('title_text', models.CharField(blank=True, max_length=50)),
                 ('content', djangocms_text_ckeditor.fields.HTMLField(blank=True)),
                 ('color_class', models.CharField(default='grey lighten-5', max_length=50)),
