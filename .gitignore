@@ -90,6 +90,7 @@ static/
 
 #Environments
 env_*/
+venv/
 
 #Settings files
 mysite/settings.py
