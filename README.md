@@ -53,6 +53,10 @@ cp mysite/settings.template.py mysite/settings.py
 
 Django has a system for migrations to prevent loads of changes, both in the db and backend. This command fixes up the database according to the model in the backend.
 
+8. Run `python manage.py createsuperuser`
+
+This creates an administrator account which is required for creating any sort of content for the CMS.
+
 # Changes
 
 - switch from MySQL to MariaDB (community-developed fork, read Google)
