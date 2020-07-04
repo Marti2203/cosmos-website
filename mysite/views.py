@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.template.loader import get_template
 from .models import Token, Pi, Door
-from django.shortcuts import render_to_response
 # from django.template import RequestContext
 import requests
 import os
