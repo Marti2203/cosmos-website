@@ -4,19 +4,11 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.template.loader import get_template
-from .models import Token, Pi, Door
-from mysite.exceptions import *
-# from django.template import RequestContext
-import requests
-import os
-
-# Check if in production environment or not
-if os.environ["DJANGO_SETTINGS_MODULE"] == "mysite.settings":
-    from mysite.settings import TOKEN, API_VERSION, DEFAULT_FROM_EMAIL
-else:
-    from mysite.settings_pr import EMAIL_HOST_USER, DEFAULT_FROM_EMAIL, TOKEN, API_VERSION
+from ..exceptions import *
+from ..settings import DEFAULT_FROM_EMAIL
 
 
+# TODO figure out if this is necessary
 def set_values(object, values, fields):
     for field in fields:
         setattr(object, field, values[field])
@@ -177,67 +169,3 @@ def reject_request(request):
     )
 
     return redirect('/requests')
-
-
-def display_album(request):
-    """
-    Retrieves images from facebook album.
-    If album does not exist, the user is redirected to the albums page (/association/photos/)
-
-    :param request:
-    :return:
-    """
-
-    # Get album id. Url ends with /, so we split by '/' and get the second to last.
-    album_id = request.get_full_path().split("/")[-2]
-
-    # TODO put in a service
-    r = requests.get(
-        'https://graph.facebook.com/%s/%s/?fields=photos.limit(1000){images},description,name&access_token=%s' % (
-            API_VERSION, album_id, TOKEN))
-    if r.status_code != requests.codes.ok:
-        return redirect('/association/photos/')
-
-    template = get_template("/widgets/gallery_album.html")
-    html = template.render({'album': r.json()}, request)
-
-    return HttpResponse(html)
-
-
-def display_door_status(request):
-    is_door_open = Door.objects.get(id=1).is_open
-
-    status = 'open' if is_door_open else 'closed'
-    return HttpResponse(status)
-
-
-def update_door_status(request):
-    try:
-        token = request.GET.get('access_token')
-        status = 1 if request.GET.get('status') == 'open' else 0
-
-        if Token.objects.filter(token=token).exists():
-            door = Door.objects.get(id=1)
-            door.is_open = status  # change field
-            door.save()
-            return HttpResponse("Updated door status")
-        return HttpResponse("Invalid token", status=401)
-    # TODO change exception to something specific
-    except Exception as e:
-        return HttpResponse("There was an error updating the door status", status=500)
-
-
-def update_pi_ip(request):
-    try:
-        token = request.GET.get('access_token')
-        ip = request.GET.get('ip')
-
-        if Token.objects.filter(token=token).exists():
-            pi = Pi.objects.get(id=1)
-            pi.ip = ip  # change field
-            pi.save()
-            return HttpResponse("Updated Pi IP")
-        return HttpResponse("Invalid token", status=401)
-    # TODO change exception to something specific
-    except Exception as e:
-        return HttpResponse("There was an error updating the IP", status=500)

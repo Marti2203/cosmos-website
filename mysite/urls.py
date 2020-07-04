@@ -2,14 +2,12 @@
 from cms.sitemaps import CMSSitemap
 from django.conf import settings
 from django.conf.urls import include, url
-# from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.static import serve
 from django.contrib.auth import views as auth_views
-# from django.conf.urls import patterns
-from . import views
+from .views import *
 
 admin.autodiscover()
 
@@ -21,15 +19,15 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^\.well-known/', include('letsencrypt.urls')),
     # door
-    url(r'^door-status/$', views.display_door_status, name='display_door_status'),
-    url(r'^door-status/update/$', views.update_door_status, name='update_door_status'),
-    url(r'^pi-ip/update/$', views.update_pi_ip, name='update_pi_ip'),
-    url(r'^update-profile/$', views.update_profile, name='update_profile'),
-    url(r'^create-member/$', views.create_member, name='create_member'),
-    # requests
-    url(r'^requests/$', views.list_requests, name='list_requests'),
-    url(r'^accept-request/$', views.accept_request, name='accept_request'),
-    url(r'^reject-request/$', views.reject_request, name='reject_request'),
+    url(r'^door-status/$', door.display_status, name='display_door_status'),
+    url(r'^door-status/update/$', door.update_status, name='update_door_status'),
+    url(r'^pi-ip/update/$', door.update_pi_ip, name='update_pi_ip'),
+    # member
+    url(r'^update-profile/$', member.update_profile, name='update_profile'),
+    url(r'^create-member/$', member.create_member, name='create_member'),
+    url(r'^requests/$', member.list_requests, name='list_requests'),
+    url(r'^accept-request/$', member.accept_request, name='accept_request'),
+    url(r'^reject-request/$', member.reject_request, name='reject_request'),
     # auth_views
     url(r'^login/$', auth_views.LoginView.as_view(), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), {'next_page': '/'}),
@@ -38,9 +36,8 @@ urlpatterns = [
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         auth_views.PasswordResetView.as_view(), name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-    url(r'^association/photos/[0-9]*/$', views.display_album, name='album'),
+    url(r'^association/photos/[0-9]*/$', facebook.display_album, name='album'),
     url(r'^', include('cms.urls')),
-
 ]
 
 # This is only needed when using runserver.
