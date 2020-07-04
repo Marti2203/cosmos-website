@@ -61,7 +61,7 @@ This creates an administrator account which is required for creating any sort of
 
 - switch from MySQL to MariaDB (community-developed fork, read Google)
 - upgraded from Django 2 to Django 3
-
+- CMS Plugins have a render method which does not do anything
 # TODO
 
 - use os.path.join
