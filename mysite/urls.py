@@ -13,20 +13,26 @@ from . import views
 
 admin.autodiscover()
 
+# File is referenced by settings.ROOT_URLCONF
 urlpatterns = [
+    # files for webcrawlers
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'cmspages': CMSSitemap}}),
+    # admin
     url(r'^admin/', admin.site.urls),
     url(r'^\.well-known/', include('letsencrypt.urls')),
-    url(r'^login/$', auth_views.LoginView.as_view(), name='login'),
-    url(r'^logout/$', auth_views.LogoutView.as_view(), {'next_page': '/'}),
+    # door
     url(r'^door-status/$', views.display_door_status, name='display_door_status'),
     url(r'^door-status/update/$', views.update_door_status, name='update_door_status'),
     url(r'^pi-ip/update/$', views.update_pi_ip, name='update_pi_ip'),
     url(r'^update-profile/$', views.update_profile, name='update_profile'),
     url(r'^create-member/$', views.create_member, name='create_member'),
+    # requests
     url(r'^requests/$', views.list_requests, name='list_requests'),
     url(r'^accept-request/$', views.accept_request, name='accept_request'),
     url(r'^reject-request/$', views.reject_request, name='reject_request'),
+    # auth_views
+    url(r'^login/$', auth_views.LoginView.as_view(), name='login'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), {'next_page': '/'}),
     url(r'^password_reset/$', auth_views.PasswordResetView.as_view(), name='password_reset'),
     url(r'^password_reset/done/$', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
