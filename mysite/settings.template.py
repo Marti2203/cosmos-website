@@ -13,8 +13,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*1)y(v%aw*_ycj&k2f4zgugs%+w9_(vts9jg!j(-3jy7pjyfrc'
 
 TEXT_ADDITIONAL_TAGS = ('iframe',)
 TEXT_ADDITIONAL_ATTRIBUTES = ('scrolling', 'allowfullscreen', 'frameborder', 'src', 'height', 'width')
@@ -23,6 +21,14 @@ TEXT_ADDITIONAL_ATTRIBUTES = ('scrolling', 'allowfullscreen', 'frameborder', 'sr
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
+
+raise Exception("SET THIS UP")
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = '*1)y(v%aw*_ycj&k2f4zgugs%+w9_(vts9jg!j(-3jy7pjyfrc'
+#Requirements from the CMS plugins 
+API_VERSION='0.0.0' # FOR FACEBOOK
+COSMOS_ID='ANDY'    # FOR The Cosmos Facebook account
+TOKEN=''            # ACCESS TOKEN FOR FACEBOOK API
 
 
 # Application definition

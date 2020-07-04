@@ -17,7 +17,7 @@ else:
 # Structural Plugins (Rows, Columns)     #
 ##########################################
 class RowPlugin(CMSPluginBase):
-    render_template = '/structure/row.html'
+    render_template = './structure/row.html'
     name = 'Row (Width 12)'
     model = ParentPlugin
     module = 'Structure'
@@ -31,7 +31,7 @@ plugin_pool.register_plugin(RowPlugin)
 
 
 class Column4Plugin(CMSPluginBase):
-    render_template = '/structure/column4.html'
+    render_template = './structure/column4.html'
     name = 'Column (Width 4)'
     model = ColumnPlugin
     parent_classes=['RowPlugin']
@@ -50,7 +50,7 @@ class Column4Plugin(CMSPluginBase):
 plugin_pool.register_plugin(Column4Plugin)
 
 class Column6Plugin(CMSPluginBase):
-    render_template = '/structure/column6.html'
+    render_template = './structure/column6.html'
     name = 'Column (Width 6)'
     model = ColumnPlugin
     child_classes=['Card', 'CardImage', 'CardLink', 'CardImageLink']
@@ -69,7 +69,7 @@ class Column6Plugin(CMSPluginBase):
 plugin_pool.register_plugin(Column6Plugin)
 
 class Column12Plugin(CMSPluginBase):
-    render_template = '/structure/column12.html'
+    render_template = './structure/column12.html'
     name = 'Column (Width 12)'
     parent_classes=['RowPlugin']
     child_classes=['Card', 'CardImage', 'CardLink', 'CardImageLink', 'Slider']
@@ -88,7 +88,7 @@ class Column12Plugin(CMSPluginBase):
 plugin_pool.register_plugin(Column12Plugin)
 
 class Column8Plugin(CMSPluginBase):
-    render_template = '/structure/column8.html'
+    render_template = './structure/column8.html'
     name = 'Column (Width 8)'
     module = 'Structure'
     child_classes=['Card', 'CardImage', 'CardLink', 'CardImageLink']
@@ -110,7 +110,7 @@ plugin_pool.register_plugin(Column8Plugin)
 # Card Plugins (Content)			     #
 ##########################################
 class CardImageLink(CMSPluginBase):
-    render_template = '/cards/card-image-link.html'
+    render_template = './cards/card-image-link.html'
     name = 'Card (Image + Link)'
     model = CardImageLink
     parent_classes=['Column4Plugin', 'Column6Plugin', 'Column8Plugin', 'Column12Plugin']
@@ -125,7 +125,7 @@ class CardImageLink(CMSPluginBase):
 plugin_pool.register_plugin(CardImageLink)
 
 class CardImage(CMSPluginBase):
-    render_template = '/cards/card-image.html'
+    render_template = './cards/card-image.html'
     name = 'Card (Image)'
     model = CardImage
     parent_classes=['Column4Plugin', 'Column6Plugin', 'Column8Plugin', 'Column12Plugin']
@@ -140,7 +140,7 @@ class CardImage(CMSPluginBase):
 plugin_pool.register_plugin(CardImage)
 
 class CardLink(CMSPluginBase):
-    render_template = '/cards/card-link.html'
+    render_template = './cards/card-link.html'
     name = 'Card (Link)'
     model = CardLink
     parent_classes=['Column4Plugin', 'Column6Plugin', 'Column8Plugin', 'Column12Plugin']
@@ -155,7 +155,7 @@ class CardLink(CMSPluginBase):
 plugin_pool.register_plugin(CardLink)
 
 class Card(CMSPluginBase):
-    render_template = '/cards/card.html'
+    render_template = './cards/card.html'
     name = 'Card (Basic)'
     model = Card
     parent_classes=['Column4Plugin', 'Column6Plugin', 'Column8Plugin', 'Column12Plugin']
@@ -178,7 +178,7 @@ plugin_pool.register_plugin(Card)
 # Displays all facebook albums. Display of each album is done in custom view with template gallery_album
 class FacebookGallery(CMSPluginBase):
     model = FacebookGalleryModel
-    render_template = '/widgets/gallery.html'
+    render_template = './widgets/gallery.html'
     name = 'Facebook Gallery (Width 12)'
     parent_classes=['RowPlugin']
     module = 'Custom'
@@ -194,7 +194,7 @@ plugin_pool.register_plugin(FacebookGallery)
 
 class Slider(CMSPluginBase):
     model = SliderModel
-    render_template = '/widgets/slider.html'
+    render_template = './widgets/slider.html'
     name = 'Slider (Width 12)'
     parent_classes=['RowPlugin']
     module = 'Custom'
@@ -206,7 +206,7 @@ plugin_pool.register_plugin(Slider)
 
 class FacebookEvents(CMSPluginBase):
     model = FacebookEventsModel
-    render_template = '/widgets/events.html'
+    render_template = './widgets/events.html'
     name = 'Facebook Events (Width 12)'
     parent_classes=['RowPlugin']
     module = 'Custom'
