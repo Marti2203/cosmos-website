@@ -11,7 +11,7 @@ import os
 
 # Check if in production environment or not
 if os.environ["DJANGO_SETTINGS_MODULE"] == "mysite.settings":
-	from mysite.settings import TOKEN, API_VERSION, DEFAULT_FROM_EMAIL
+	from mysite.settings import FACEBOOK_API_TOKEN, FACEBOOK_API_VERSION, DEFAULT_FROM_EMAIL
 else:
 	from mysite.settings_pr import EMAIL_HOST_USER, DEFAULT_FROM_EMAIL, TOKEN, API_VERSION
 
@@ -163,7 +163,7 @@ def reject_request(request):
 def display_album(request):
 	album_id = request.get_full_path().split("/")[-2] #Get album id. Url ends with /, so we split by '/' and get the second to last.
 
-	r = requests.get('https://graph.facebook.com/%s/%s/?fields=photos.limit(1000){images},description,name&access_token=%s' % (API_VERSION, album_id, TOKEN))
+	r = requests.get('https://graph.facebook.com/%s/%s/?fields=photos.limit(1000){images},description,name&access_token=%s' % (FACEBOOK_API_VERSION, album_id, FACEBOOK_API_TOKEN))
 	if r.status_code != requests.codes.ok:
 		return redirect('/association/photos/')
 
