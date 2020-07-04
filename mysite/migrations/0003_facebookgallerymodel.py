@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FacebookGalleryModel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='mysite_facebookgallerymodel', serialize=False, primary_key=True, auto_created=True, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='mysite_facebookgallerymodel', serialize=False, primary_key=True, auto_created=True,on_delete=models.CASCADE, to='cms.CMSPlugin')),
                 ('title_text', models.CharField(max_length=50, blank=True)),
                 ('content', djangocms_text_ckeditor.fields.HTMLField(blank=True)),
                 ('color_class', models.CharField(max_length=50, default='grey lighten-5')),

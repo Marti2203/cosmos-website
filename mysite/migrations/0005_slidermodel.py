@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SliderModel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, serialize=False, to='cms.CMSPlugin', related_name='mysite_slidermodel', parent_link=True, primary_key=True)),
+                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, serialize=False, to='cms.CMSPlugin',on_delete=models.CASCADE, related_name='mysite_slidermodel', parent_link=True, primary_key=True)),
             ],
             options={
                 'abstract': False,

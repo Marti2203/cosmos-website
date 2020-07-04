@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Card',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(primary_key=True, serialize=False, auto_created=True, related_name='mysite_card', parent_link=True, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(primary_key=True, serialize=False, auto_created=True, related_name='mysite_card', parent_link=True, to='cms.CMSPlugin',on_delete=models.CASCADE)),
                 ('title_text', models.CharField(max_length=50, blank=True)),
                 ('content', djangocms_text_ckeditor.fields.HTMLField(blank=True)),
                 ('image_url', models.CharField(max_length=100, blank=True, default='')),
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ColumnPlugin',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(primary_key=True, serialize=False, auto_created=True, related_name='mysite_columnplugin', parent_link=True, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(primary_key=True, serialize=False, auto_created=True, related_name='mysite_columnplugin', parent_link=True, to='cms.CMSPlugin',on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ParentPlugin',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(primary_key=True, serialize=False, auto_created=True, related_name='mysite_parentplugin', parent_link=True, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(primary_key=True, serialize=False, auto_created=True, related_name='mysite_parentplugin', parent_link=True, to='cms.CMSPlugin',on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,

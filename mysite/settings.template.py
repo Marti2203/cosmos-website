@@ -29,7 +29,7 @@ SECRET_KEY = '*1)y(v%aw*_ycj&k2f4zgugs%+w9_(vts9jg!j(-3jy7pjyfrc'
 API_VERSION='0.0.0' # FOR FACEBOOK
 COSMOS_ID='ANDY'    # FOR The Cosmos Facebook account
 TOKEN=''            # ACCESS TOKEN FOR FACEBOOK API
-
+DEFAULT_FROM_EMAIL ='' # Email used to send letters
 
 # Application definition
 
