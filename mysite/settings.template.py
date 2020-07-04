@@ -23,6 +23,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 
 raise Exception("SET THIS UP")
+X_FRAME_OPTIONS = "SAMEORIGIN"
+XS_SHARING_ALLOWED_METHODS = ["POST", "GET", "OPTIONS", "PUT", "DELETE"]
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '*1)y(v%aw*_ycj&k2f4zgugs%+w9_(vts9jg!j(-3jy7pjyfrc'
 #Requirements from the CMS plugins 
