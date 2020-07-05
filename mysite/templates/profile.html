@@ -160,15 +160,4 @@
         $('#department option[value="{{ request.user.profile.department }}"]').attr("selected", "selected");
         $('#program option[value="{{ request.user.profile.program }}"]').attr("selected", "selected");
     });
-
-    function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-</script>
-{% endblock %}
+</script> { % endblock % }
