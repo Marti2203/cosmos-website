@@ -18,7 +18,7 @@ class FacebookGallery(CMSPluginBase):
     #Before rendering the template, we get some data from the facebook API service
     def render(self, context, instance, placeholder):
         # TODO RENAME THIS "VARIABLE"
-        _, instance.variable = FacebookService.get_albums()
+        _, instance.albums = FacebookService.get_albums()
         instance.context_m = context
         context = super(FacebookGallery, self).render(
             context, instance, placeholder)

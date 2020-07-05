@@ -43,7 +43,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-assets/ # The directory set as STATIC_ROOT where Apache creates new static files on live web servers.
+#assets/ # The directory set as STATIC_ROOT where Apache creates new static files on live web servers.
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -86,7 +86,7 @@ target/
 .idea/
 
 #Static folder generated from collectstatic
-static/
+#static/
 
 #Environments
 env_*/
@@ -98,3 +98,4 @@ mysite/settings_pr.py
 
 #media folder (filer)
 media/
+.vscode/
