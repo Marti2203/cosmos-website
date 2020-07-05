@@ -17,8 +17,8 @@ class FacebookEvents(CMSPluginBase):
     parent_classes = ['RowPlugin']  # Where the plugin can be put
 
     def render(self, context, instance, placeholder):
-        instance.future_events = FacebookService.get_future_events()
-        instance.past_events = FacebookService.get_past_events()
+        _,instance.future_events = FacebookService.get_future_events()
+        _,instance.past_events = FacebookService.get_past_events()
         context = super(FacebookEvents, self).render(
             context, instance, placeholder)
         return context

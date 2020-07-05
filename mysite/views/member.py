@@ -4,8 +4,8 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.template.loader import get_template
-from ..exceptions import *
-from ..settings import DEFAULT_FROM_EMAIL
+from mysite.exceptions import *
+from mysite.settings import DEFAULT_FROM_EMAIL
 
 
 # TODO figure out if this is necessary
@@ -30,7 +30,8 @@ def update_profile(request):
     user = set_values(user, request.POST, fields)
     user.username = email
 
-    fields = ['department', 'program', 'nationality', 'tue_id', 'phone_nr', 'gender', 'card_number']
+    fields = ['department', 'program', 'nationality',
+              'tue_id', 'phone_nr', 'gender', 'card_number']
     user.profile = set_values(user.profile, request.POST, fields)
 
     user.save()
@@ -54,7 +55,8 @@ def create_member(request):
     user = set_values(user, request.POST, fields)
     user.email = email
 
-    fields = ['department', 'program', 'nationality', 'tue_id', 'phone_nr', 'gender', 'card_number']
+    fields = ['department', 'program', 'nationality',
+              'tue_id', 'phone_nr', 'gender', 'card_number']
     user.profile = set_values(user.profile, request.POST, fields)
 
     user.password = make_password(request.POST['password'])
@@ -125,47 +127,45 @@ def accept_request(request):
     except UserException:
         return redirect('/requests')
 
-    user = User.objects.get(id=id)
     user.profile.member_type = 'MEMBER'
     user.save()
 
-    message = "Dear " + user.first_name + \
-              ", \n \n Your information has been verified and your account is now " \
-              "activated. \n \n Best regards, \n The Cosmos Website Committee \n "
+    message = \
+"""Dear {},
 
-    # Email the user that just got accepted
-    send_mail(
-        'Your account has been verified',
-        message,
-        DEFAULT_FROM_EMAIL,
-        [user.email],
-    )
+Your information has been verified and your account is now activated.
+               
+Best regards,
+The Cosmos Website Committee 
+""".format(user.first_name)
 
-    return redirect('/requests')
-
+    return process_request(user,'MEMBER',message)
 
 # For now it just makes the user's member_type "rejected". Will consider deleting from DB
+
+
 def reject_request(request):
     try:
         user = get_admin_user(request)
     except UserException:
         return redirect('/requests')
 
-    user.profile.member_type = 'Rejected'
+    message = \
+"""Dear {},
+
+We regret to inform you that after reviewing your information, your membership request has been rejected.
+If you would like to reach us,you can do so sending an email to cosmos@tue.nl. 
+
+Best regards,
+The Cosmos Website Committee
+""".format(user.first_name)
+
+    return process_request(user, 'Rejected', message)
+
+
+def process_request(user, member_type, message):
+    user.profile.member_type = member_type
     user.save()
-
-    message = "Dear " + user.first_name + \
-              ", \n \n We regret to inform you that after reviewing your information, " \
-              "your membership request has been rejected. If you would like to reach us, " \
-              "you can do so sending an email to cosmos@tue.nl. \n \n " \
-              "Best regards, \n The Cosmos Website Committee \n "
-
-    # Email the user that just got rejected
-    send_mail(
-        'Your account has been verified',
-        message,
-        DEFAULT_FROM_EMAIL,
-        [user.email],
-    )
-
+    send_mail('Your account has been verified',
+              message, DEFAULT_FROM_EMAIL, [user.email])
     return redirect('/requests')
