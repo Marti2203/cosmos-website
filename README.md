@@ -57,13 +57,17 @@ Django has a system for migrations to prevent loads of changes, both in the db a
 
 This creates an administrator account which is required for creating any sort of content for the CMS.
 
+9. Run `python manage.py runserver'
+
+This should start the server and give a reference to hat port is is running on.
+
 # Changes
 
 - switch from MySQL to MariaDB (community-developed fork, read Google)
 - upgraded from Django 2 to Django 3
-
+- CMS Plugins have a render method which does not do anything
 # TODO
 
 - use os.path.join
 - keep database schema inside of git repository
-- maybe require gdal?
+- remove all referenes of mysite and call it digitalcosmos
