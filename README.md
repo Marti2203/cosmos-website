@@ -1,7 +1,10 @@
 # Cosmos Website
 
 ## Instructions
-
+0. Create A python virtual enviroment
+```bash
+py -3 -m venv venv
+```
 1. Activate Python virtual environment
 ```bash
 source ./venv/bin/activate
