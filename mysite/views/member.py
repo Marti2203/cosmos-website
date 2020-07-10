@@ -1,10 +1,12 @@
 from django.core.mail import send_mail
 from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.template.loader import get_template
 from ..exceptions import *
+from ..forms import UserUpdateForm, UserRegistrationForm, ProfileForm, ProfileUpdateForm
 from ..settings import DEFAULT_FROM_EMAIL
 
 
@@ -15,10 +17,76 @@ def set_values(object, values, fields):
     return object
 
 
-# TODO: Proper django form
+def model_update_profile(request):
+    if not request.user.is_authenticated:
+        # If not logged in, prompt log in
+        return redirect('login')
+
+    # Get instance of User and Profile
+    user = User.objects.get(id=int(request.user.id))
+    profile = user.profile
+
+    if request.method != 'POST':
+        # Show current details
+        user_form = UserUpdateForm(instance=user)
+        profile_form = ProfileUpdateForm(instance=profile)
+    else:
+        # Update details
+        user_form = UserUpdateForm(request.POST, instance=user)
+        profile_form = ProfileUpdateForm(request.POST, instance=profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            user.profile = profile_form.save(user)
+            messages.success(request, 'Valid form')
+            return render(request, 'modelled/update_success.html')
+        else:
+            # Notify form is invalid
+            messages.error(request, 'Invalid form')
+
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form
+    }
+    return render(request, 'modelled/profile.html', context)
+
+
+def model_create_profile(request):
+    if request.method != 'POST':
+        # If not post, display registration page
+        user_form = UserRegistrationForm()
+        profile_form = ProfileForm()
+    else:
+        # Process request via ModelForm
+        user_form = UserRegistrationForm(request.POST)
+        profile_form = ProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            # Creates a new user automatically with a new Profile instance
+            user = user_form.save()
+            # Give user reference to the profile
+            user.profile = profile_form.save(user)
+            # Hash and save password
+            user.password = make_password(user_form.cleaned_data['password'])
+            # Save all changes
+            user.save()
+            messages.success(request, 'Valid form')
+            return render(request, 'modelled/join_success.html')
+        else:
+            # Notify form is invalid
+            messages.error(request, 'Invalid form')
+    return render(request, 'modelled/join.html', {
+        'form': user_form.as_table() + profile_form.as_table()
+    })
+
+
+# TODO replace with proper django form
 def update_profile(request):
-    if request.method != 'POST' or not request.user.is_authenticated:
-        return redirect('/login')
+    if not request.user.is_authenticated:
+        # If not logged in, prompt log in
+        return redirect('login')
+
+    if request.method != 'POST':
+        # If not POST, display profile page
+        return render(request, 'profile.html')
 
     email = request.POST['email']
     if request.user.email != email and User.objects.filter(username=email).exists():
@@ -40,7 +108,7 @@ def update_profile(request):
 def create_member(request):
     if request.method != 'POST':
         # If function triggered NOT by the form, redirect to webpage
-        return redirect('/create-member')
+        return render(request, 'registration/join.html')
 
     email = request.POST['email']
     if User.objects.filter(username=email).exists():
@@ -94,7 +162,7 @@ def create_member(request):
 def list_requests(request):
     if request.user.is_authenticated and request.user.is_staff:
         join_requests = User.objects.filter(profile__member_type='Pending')
-        template = get_template("/request-list.html")
+        template = get_template("request-list.html")
         html = template.render({"requests": join_requests}, request)
 
         return HttpResponse(html)

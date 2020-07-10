@@ -163,9 +163,6 @@ CMS_LANGUAGES = {
 CMS_TEMPLATES = (
         ## Customize this
         ('fullwidth.html', 'Fullwidth'),
-        ('registration/login.html', 'Login Page'),
-        ('profile.html', 'Profile Page'),
-        ('registration/join.html', 'Join Page')
         )
 
 CMS_PERMISSION = True

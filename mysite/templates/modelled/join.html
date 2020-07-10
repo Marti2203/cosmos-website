@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Join{% endblock %}
+
+{% block content %}
+<div class="col s12 m12 l6">
+    <div class="card grey lighten-5">
+        <div class="card-content">
+            <div class="card-image">
+              <img src="/static/assets/img/carousel/members_2017.jpg">
+              <span class="card-title">Join Cosmos<i class="material-icons left" style="">perm_identity</i></span>
+            </div>
+            <br/>
+            <p>Any student of TU/e can become a Cosmos member for free. To sign up, fill in your information below, and we will send an e-mail to confirm your registration. If you are having problems with your registration, feel free to contact us! <br/><br/>
+            <form method="post" action="{% url 'model_create_member' %}">
+            {% csrf_token %}
+                <table>
+                    {{ form }}
+                </table>
+                <button class="btn light-blue darken-4 waves-effect waves-light" type="submit" value="login" name="action">Join
+                    <i class="material-icons right">send</i>
+                </button>
+
+                <input type="hidden" name="next" value="/" />
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

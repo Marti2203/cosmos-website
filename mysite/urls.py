@@ -12,6 +12,7 @@ from .views import *
 admin.autodiscover()
 
 # File is referenced by settings.ROOT_URLCONF
+# Links URLs to functions to handle HTTP requests
 urlpatterns = [
     # files for webcrawlers
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'cmspages': CMSSitemap}}),
@@ -23,6 +24,8 @@ urlpatterns = [
     url(r'^door-status/update/$', door.update_status, name='update_door_status'),
     url(r'^pi-ip/update/$', door.update_pi_ip, name='update_pi_ip'),
     # member
+    url(r'^model-update-profile/$', member.model_update_profile, name='model_update_profile'),
+    url(r'^model-create-profile/$', member.model_create_profile, name='model_create_member'),
     url(r'^update-profile/$', member.update_profile, name='update_profile'),
     url(r'^create-member/$', member.create_member, name='create_member'),
     url(r'^requests/$', member.list_requests, name='list_requests'),

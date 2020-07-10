@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{request.user.first_name}}'s Profile{% endblock %}
+
+{% block content %}
+<div class="col s12 l6">
+    <div class="card grey lighten-5">
+        <div class="card-content">
+            <div class="card-image">
+              <img src="/static/assets/img/members_flat.jpg">
+              <span class="card-title">{{request.user.first_name}}'s Profile <i class="material-icons left" style="">perm_identity</i></span>
+            </div>
+            <br/>
+            <form method="post" action="{% url 'model_update_profile' %}">
+                {% csrf_token %}
+                Hola!
+                <table>
+                    {{ user_form.as_p }}
+                    {{ profile_form.as_p }}
+                </table>
+                <button class="btn light-blue darken-4 waves-effect waves-light" type="submit" value="Save" name="action">Update Profile
+                    <i class="material-icons right">send</i>
+                </button>
+                <input type="hidden" name="next" value="/" />
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
