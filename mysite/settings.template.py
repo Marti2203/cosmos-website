@@ -28,10 +28,10 @@ XS_SHARING_ALLOWED_METHODS = ["POST", "GET", "OPTIONS", "PUT", "DELETE"]
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '*1)y(v%aw*_ycj&k2f4zgugs%+w9_(vts9jg!j(-3jy7pjyfrc'
 #Requirements from the CMS plugins 
-API_VERSION='0.0.0' # FOR FACEBOOK
-COSMOS_ID='ANDY'    # FOR The Cosmos Facebook account
-TOKEN=''            # ACCESS TOKEN FOR FACEBOOK API
-DEFAULT_FROM_EMAIL ='' # Email used to send letters
+FACEBOOK_API_VERSION = '0.0.0'  # FOR FACEBOOK
+COSMOS_FACEBOOK_ACCOUNT_ID = ''        # FOR The Cosmos Facebook account
+FACEBOOK_API_TOKEN = ''            # ACCESS TOKEN FOR FACEBOOK API
+DEFAULT_FROM_EMAIL = ''  # Email which sends letters
 
 # Application definition
 

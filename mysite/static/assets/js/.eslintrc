@@ -1,0 +1,14 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "script",
+        "ecmaFeatures": {
+            "jsx": false
+        }
+    },
+    "rules": {
+        "semi": "error",
+        "no-var":"error",
+        "block-scoped-var":"error"
+    }
+}

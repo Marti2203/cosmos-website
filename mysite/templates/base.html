@@ -3,86 +3,90 @@
 <!doctype html>
 <!-- if not logged in & page requires logged in, redirect to /login/ -->
 <html lang="en">
-    <head>
-        <title>{% block title %}This is my new project home page{% endblock title %}</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-        <!-- CSS  -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-        <link href="/static/assets/css/materialize/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-        <link href="/static/assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-        <link rel="icon" href="/static/assets/img/favicon.ico">
-        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-63061616-3"></script>
-	<script>
- 		 window.dataLayer = window.dataLayer || [];
- 		 function gtag(){dataLayer.push(arguments);}
- 		 gtag('js', new Date());
- 		 gtag('config', 'UA-63061616-3');
-	</script>
+<head>
+    <title>{% block title %}This is my new project home page{% endblock title %}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="/static/assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link rel="icon" href="/static/assets/img/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script src="/static/assets/js/utils.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-63061616-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-63061616-3');
+    </script>
 
 
-        {% render_block "css" %}
-    </head>
-    <body class="grey darken-2">
-        {% cms_toolbar %}
-        <div class="wrapper">
-            {% show_menu 0 100 100 100 "menu/menu.html" %}
-            {% show_breadcrumb "menu/breadcrumbs.html" %}
+    {% render_block "css" %}
+</head>
+
+<body class="grey darken-2">
+    {% cms_toolbar %}
+    <div class="wrapper">
+        {% show_menu 0 100 100 100 "menu/menu.html" %} {% show_breadcrumb "menu/breadcrumbs.html" %}
+        <div class="container">
+            <div class="content">
+                {% block content %} {% endblock content %}
+            </div>
+        </div>
+
+        <footer class="page-footer grey darken-1">
             <div class="container">
-                <div class="content">
-                {% block content %}
-                {% endblock content %}
+                <div class="row">
+                    <div class="col l6 s12">
+                        <a id="logo-container" href="/" class="brand-logo"><img src="/static/assets/img/cosmos_white.png" style="height: 80px;"></a>
+                        <p class="grey-text text-lighten-4" style="font-size: 13px">Cosmos - The International Student Association of TU/e<br/>All Rights Reserved © 2019<br/>
+                            <a style="color: #ccc;" href="mailto:cosmos@tue.nl">cosmos@tue.nl </a><br/><br/>
+                        </p>
+                    </div>
+                    <div class="col l6 s12">
+                        <div class="row">
+                            <div class="col s12">
+                                <a href="https://partnerprogramma.bol.com/click/click?p=1&t=url&s=48265&f=TXL&url=http%3A%2F%2Fwww.bol.com&name=Cosmos" target="_blank"><img src="/static/assets/img/bol.png" style="width: 45%">
+                                </a>
+                                <a href="https://tue.nl" target="_blank"><img src="/static/assets/img/tue.png" style="width: 45%">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col l6 s6">
+                                <a href="https://eindhoven.papajohns.co.nl/" target="_blank">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Papa_John%27s_Logo_2019.svg" style="width: 90%">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <footer class="page-footer grey darken-1">
+            <div class="footer-copyright">
                 <div class="container">
-                    <div class="row">
-                        <div class="col l6 s12">
-                            <a id="logo-container" href="/" class="brand-logo"><img src="/static/assets/img/cosmos_white.png" style="height: 80px;"></a>
-                            <p class="grey-text text-lighten-4" style="font-size: 13px">Cosmos - The International Student Association of TU/e<br/>All Rights Reserved © 2019<br/>
-                            <a style="color: #ccc;" href="mailto:cosmos@tue.nl">cosmos@tue.nl </a><br/><br/>
-                            </p>
-                        </div>
-                         <div class="col l6 s12">
-                         	<div class="row">
-                         		<div class="col s12">
-		                           	<a href="https://partnerprogramma.bol.com/click/click?p=1&t=url&s=48265&f=TXL&url=http%3A%2F%2Fwww.bol.com&name=Cosmos" target="_blank"><img src="/static/assets/img/bol.png" style="width: 45%">
-		                    		</a>
-		                    		<a href="https://tue.nl" target="_blank"><img src="/static/assets/img/tue.png" style="width: 45%">
-		                    		</a>
-	                    		</div>
-                    		</div>
-                             <div class="row">
-                                 <div class="col l6 s6">
-                                    <a href="https://eindhoven.papajohns.co.nl/" target="_blank">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Papa_John%27s_Logo_2019.svg" style="width: 90%">
-                                    </a>
-                                </div>
-                             </div>
-                    	</div>
-
-                    </div>
-
-
+                    Managed by Cosmos
+                    <cms-plugin alt="Link - Webcommittee " id="16" render-plugin="true" title="Link - Webcommittee"><a style="color: #ccc;" href="/association/committees/website-committee/">Website Committee</a></cms-plugin>
                 </div>
-                <div class="footer-copyright">
-                    <div class="container">
-                        Managed by Cosmos <cms-plugin alt="Link - Webcommittee " id="16" render-plugin="true" title="Link - Webcommittee"><a style="color: #ccc;" href="/association/committees/website-committee/">Website Committee</a></cms-plugin>
-                    </div>
-                </div>
-            </footer>
-            {% render_block "js" %}
+            </div>
+        </footer>
+        {% render_block "js" %}
+        <!-- Compiled and minified CSS -->
 
-            <script src="/static/assets/js/materialize/materialize.js"></script>
-            <script src="/static/assets/js/materialize/init.js"></script>
-            <script src="/static/assets/js/jquery.matchHeight.js"></script>
-            <!-- Matches the height of all columns in a row -->
-            <script>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <!-- Matches the height of all columns in a row -->
+        <script src="/static/assets/js/jquery.matchHeight.js"></script>
+        <script>
             /* matchHeight of columns */
 
             $(function() {
@@ -96,9 +100,8 @@
                 });
             });
             $(document).ready(function() {
-                $('select').material_select();
+                $('select').formSelect();
               });
-
             </script>
         </div>
     </body>
