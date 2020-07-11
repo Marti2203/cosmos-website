@@ -133,11 +133,11 @@ def create_member(request):
 
     user.save()
 
-    message = "Dear " + user.first_name + \
-              ", \n \n Your account has been created successfully, your information " \
-              "will be validated as soon as possible by our board members. As soon as " \
-              "your information is verified, you will receive an e-mail from us. \n \n " \
- \
+    message = """Dear {},
+Your account has been created successfully, your information will be validated as soon as possible by our board members. 
+As soon as your information is verified, you will receive an e-mail from us.
+              
+""".format(user.first_name)
         # Email the user that just signed up
     send_mail(
         'Signup Confirmation',

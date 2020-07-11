@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm, ValidationError, PasswordInput, CharField, HiddenInput
 from .models.profile import Profile
 
-
+#TODO Split into multiple files
 class UserUpdateForm(ModelForm):
     class Meta:
         model = User

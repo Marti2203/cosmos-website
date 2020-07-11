@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-NATIONALITY_LIST = [
+NATIONALITIES = [
     "Afghan",
     "Albanian",
     "Algerian",
@@ -210,7 +210,7 @@ DEPARTMENTS = [
     "Built Environment",
 ]
 
-PROGRAM = [
+PROGRAMS = [
     "Bachelor", "Master", "PDEng", "PHD", "Exchange", "Other",
 ]
 
@@ -225,10 +225,10 @@ class Profile(models.Model):
         (name, name) for name in DEPARTMENTS
     ))
     program = models.CharField(max_length=100, choices=(
-        (name, name) for name in PROGRAM
+        (name, name) for name in PROGRAMS
     ))
     nationality = models.CharField(max_length=100, choices=(
-        (country, country) for country in NATIONALITY_LIST
+        (country, country) for country in NATIONALITIES
     ))
     gender = models.CharField(max_length=10, choices=(
         ('Male', 'Male'),
